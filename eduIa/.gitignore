@@ -1,0 +1,16 @@
+# Arquivo de variáveis de ambiente
+.env
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Arquivos do Streamlit
+.streamlit/
+
+# Arquivos temporários
+__pycache__/
+*.pyc
+
+# Configurações locais
+*.log
