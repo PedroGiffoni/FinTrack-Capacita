@@ -368,46 +368,47 @@ A estrutura deve manter o FinTrack Java e o Edu IA nas posições esperadas pelo
 
 ---
 
-## 2. Configure o Edu IA pela primeira vez
+## 2. Configure a Aplicação pela primeira vez
 
-Antes da primeira execução, é necessário criar o ambiente virtual do Python e instalar as dependências.
+## ⚙️ Configuração inicial
 
-Entre na pasta:
-
-```text
-eduIa
-```
-
-Crie o ambiente virtual:
-
-```powershell
-python -m venv .venv
-```
-
-Ative o ambiente:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-Instale as dependências:
-
-```powershell
-pip install -r requirements.txt
-```
-
-O arquivo `requirements.txt` deve conter as bibliotecas necessárias, como:
+Na primeira vez que executar o projeto, utilize o arquivo:
 
 ```text
-streamlit
-pandas
-groq
-requests
+configurar_projeto.bat
 ```
 
-Depois da instalação inicial, não é necessário repetir esse processo toda vez que utilizar o programa.
+Basta dar dois cliques no arquivo.
 
----
+O configurador irá automaticamente:
+
+- Verificar se o Java está instalado;
+- Verificar se o compilador Java está disponível;
+- Verificar se o Python está instalado;
+- Criar o ambiente virtual do Edu IA;
+- Instalar as dependências presentes no `requirements.txt`.
+
+Após a mensagem de configuração concluída, execute:
+
+```text
+rodar_fintrack.bat
+```
+
+### Primeira utilização
+
+```text
+configurar_projeto.bat
+        ↓
+rodar_fintrack.bat
+```
+
+### Próximas utilizações
+
+```text
+rodar_fintrack.bat
+```
+
+> O arquivo `configurar_projeto.bat` precisa ser executado novamente apenas se o ambiente virtual for removido ou se for necessário reinstalar as dependências do projeto.
 
 # 🚀 Execução simplificada com `rodar_fintrack.bat`
 
