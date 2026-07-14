@@ -1,31 +1,109 @@
+# Importa funções para trabalhar com arquivos e caminhos do sistema.
 import os
+
+# Importa funções para leitura de arquivos JSON.
 import json
+
+# Importa o Pandas para leitura das bases em CSV.
 import pandas as pd
+
+# Importa o Streamlit para criar a interface web.
 import streamlit as st
-from dotenv import load_dotenv
-from google import genai
+
+# Importa a classe Groq para conexão com a API.
+from groq import Groq
+
+# Importa Requests para consultar cotações externas.
 import requests
+
+# Importa expressões regulares para pequenos tratamentos de texto.
 import re
 
-# 1. Carregar variáveis de ambiente (.env)
-load_dotenv()
-API_KEY = os.getenv("GEMINI_API_KEY")
 
-if not API_KEY:
-    raise ValueError("A variável GEMINI_API_KEY não foi encontrada. Verifique o arquivo .env.")
+# ============================================================
+# 1. CONFIGURAÇÃO DA PÁGINA
+# ============================================================
 
-# 2. Configurar cliente Gemini (NOVA API)
-client = genai.Client(api_key=API_KEY)
-MODEL_NAME = "gemini-2.5-flash"
+st.set_page_config(
+    page_title="Edu - Educador Financeiro Inteligente",
+    page_icon="💸",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 
-# 3. Função para carregar base de conhecimento
+# ============================================================
+# 2. MODELO UTILIZADO NA GROQ
+# ============================================================
+
+MODEL_NAME = "openai/gpt-oss-20b"
+
+
+# ============================================================
+# 3. BARRA LATERAL
+# ============================================================
+
+with st.sidebar:
+
+    # Título da barra lateral.
+    st.title("💸 Edu IA")
+
+    # Pequena apresentação do assistente.
+    st.markdown(
+        "Educador financeiro inteligente conectado aos dados do FinTrack."
+    )
+
+    # Campo protegido para o usuário inserir sua própria chave.
+    groq_api_key = st.text_input(
+        "Insira sua API Key da Groq",
+        type="password",
+        help="Crie sua chave em https://console.groq.com/keys"
+    )
+
+    # Link para criação da chave.
+    st.markdown(
+        "🔑 [Criar uma chave da Groq]"
+        "(https://console.groq.com/keys)"
+    )
+
+    st.markdown("---")
+
+    st.markdown(
+        f"**Modelo utilizado:** `{MODEL_NAME}`"
+    )
+
+    st.markdown("---")
+
+    st.caption(
+        "A chave é utilizada somente durante a execução da aplicação "
+        "e não é salva pelo Edu."
+    )
+
+    st.caption(
+        "A IA pode cometer erros. Verifique informações importantes."
+    )
+
+
+# ============================================================
+# 4. FUNÇÃO PARA CARREGAR AS BASES DE CONHECIMENTO
+# ============================================================
 
 def carregar_bases():
-    base_dir = os.path.join(os.path.dirname(__file__), "..", "data")
 
-    perfil_path = os.path.join(base_dir, "perfil_investidor.json")
+    # Localiza a pasta data do Edu.
+    base_dir = os.path.join(
+        os.path.dirname(__file__),
+        "..",
+        "data"
+    )
 
+    # Caminho do perfil financeiro.
+    perfil_path = os.path.join(
+        base_dir,
+        "perfil_investidor.json"
+    )
+
+    # Caminho do arquivo de transações gerado pelo FinTrack Java.
     transacoes_path = os.path.abspath(
         os.path.join(
             os.path.dirname(__file__),
@@ -37,18 +115,34 @@ def carregar_bases():
         )
     )
 
-    historico_path = os.path.join(base_dir, "historico_atendimento.csv")
-    produtos_path = os.path.join(base_dir, "produtos_financeiros.json")
+    # Caminho do histórico de atendimento.
+    historico_path = os.path.join(
+        base_dir,
+        "historico_atendimento.csv"
+    )
 
+    # Caminho da lista de produtos financeiros.
+    produtos_path = os.path.join(
+        base_dir,
+        "produtos_financeiros.json"
+    )
+
+    # Valores iniciais usados caso os arquivos não existam.
     perfil = {}
     transacoes = pd.DataFrame()
     historico = pd.DataFrame()
     produtos = {}
 
+    # Carrega o perfil financeiro.
     if os.path.exists(perfil_path):
-        with open(perfil_path, "r", encoding="utf-8") as f:
-            perfil = json.load(f)
+        with open(
+            perfil_path,
+            "r",
+            encoding="utf-8"
+        ) as arquivo:
+            perfil = json.load(arquivo)
 
+    # Carrega as transações do FinTrack.
     if os.path.exists(transacoes_path):
         transacoes = pd.read_csv(
             transacoes_path,
@@ -65,20 +159,39 @@ def carregar_bases():
             ],
             encoding="utf-8"
         )
+
     else:
-        st.warning(f"Arquivo de transações do FinTrack não encontrado em: {transacoes_path}")
+        st.warning(
+            "Arquivo de transações do FinTrack não encontrado em: "
+            f"{transacoes_path}"
+        )
 
+    # Carrega o histórico de atendimento.
     if os.path.exists(historico_path):
-        historico = pd.read_csv(historico_path, sep=",")
+        historico = pd.read_csv(
+            historico_path,
+            sep=","
+        )
 
+    # Carrega a lista de produtos financeiros.
     if os.path.exists(produtos_path):
-        with open(produtos_path, "r", encoding="utf-8") as f:
-            produtos = json.load(f)
+        with open(
+            produtos_path,
+            "r",
+            encoding="utf-8"
+        ) as arquivo:
+            produtos = json.load(arquivo)
 
     return perfil, transacoes, historico, produtos
 
-# 4. Função para buscar cotações reais
+
+# ============================================================
+# 5. FUNÇÃO PARA BUSCAR COTAÇÕES REAIS
+# ============================================================
+
 def buscar_cotacao(moeda):
+
+    # Endereços da AwesomeAPI para cada moeda aceita.
     urls = {
         "dolar": "https://economia.awesomeapi.com.br/json/last/USD-BRL",
         "dollar": "https://economia.awesomeapi.com.br/json/last/USD-BRL",
@@ -95,129 +208,317 @@ def buscar_cotacao(moeda):
         return None
 
     try:
-        response = requests.get(urls[moeda], timeout=5)
+        response = requests.get(
+            urls[moeda],
+            timeout=5
+        )
+
         data = response.json()
 
         if "USDBRL" in data:
             return float(data["USDBRL"]["bid"])
+
         if "EURBRL" in data:
             return float(data["EURBRL"]["bid"])
+
         if "BTCBRL" in data:
             return float(data["BTCBRL"]["bid"])
 
         return None
 
-    except:
+    except Exception:
         return None
 
-# 5. Função para montar o prompt com contexto
-def montar_prompt(pergunta, perfil, transacoes, historico, produtos):
+
+# ============================================================
+# 6. FUNÇÃO PARA MONTAR O PROMPT COM CONTEXTO
+# ============================================================
+
+def montar_prompt(
+    pergunta,
+    perfil,
+    transacoes,
+    historico,
+    produtos
+):
+
+    # Define o comportamento do Edu.
     prompt_sistema = """
 Você é o Edu, um educador e consultor financeiro inteligente.
 
 OBJETIVO:
 Ensinar finanças pessoais de forma simples e clara.
-Você também pode fornecer cotações de moedas, pois recebe esses dados de uma API externa.
+Você também pode fornecer cotações de moedas, pois recebe esses dados
+de uma API externa.
 
 REGRAS:
 - Nunca invente nomes para o usuário.
 - Só use um nome se o usuário disser explicitamente.
 - Caso contrário, trate o usuário apenas como "você".
-- Não crie saudações artificiais ("Olá, investidor", "Olá, seu educador financeiro", etc.).
+- Não crie saudações artificiais.
 - Comece a resposta diretamente com o conteúdo.
-- Você PODE fornecer cotações reais quando a API retornar valores.
-- Depois da cotação, você pode complementar com explicações educativas.
-- Não invente dados que não vieram da API.
+- Você pode fornecer cotações reais quando a API retornar valores.
+- Depois da cotação, pode complementar com explicações educativas.
+- Não invente dados que não vieram da API ou das bases.
 - Não recomende investimentos específicos.
+- Não prometa rentabilidade.
 - Use linguagem simples, como se explicasse para um amigo.
-- Se realmente não souber algo, admita: "Não tenho essa informação, mas posso explicar o conceito".
+- Utilize as transações reais do FinTrack quando forem relevantes.
+- Se não souber algo, admita que não possui a informação.
 """
 
+    # Adiciona o perfil financeiro ao contexto.
     contexto = "=== PERFIL DO CLIENTE ===\n"
-    contexto += json.dumps(perfil, ensure_ascii=False, indent=2)
-    contexto += "\n\n=== PRODUTOS FINANCEIROS (PARA ENSINO) ===\n"
-    contexto += json.dumps(produtos, ensure_ascii=False, indent=2)
+    contexto += json.dumps(
+        perfil,
+        ensure_ascii=False,
+        indent=2
+    )
 
+    # Adiciona os produtos financeiros.
+    contexto += (
+        "\n\n=== PRODUTOS FINANCEIROS "
+        "(PARA ENSINO) ===\n"
+    )
+
+    contexto += json.dumps(
+        produtos,
+        ensure_ascii=False,
+        indent=2
+    )
+
+    # Adiciona as transações do FinTrack.
     if not transacoes.empty:
-        contexto += "\n\n=== TRANSACOES DO CLIENTE ===\n"
-        contexto += transacoes.to_csv(index=False)
+        contexto += (
+            "\n\n=== TRANSAÇÕES DO CLIENTE ===\n"
+        )
 
+        contexto += transacoes.to_csv(
+            index=False
+        )
+
+    # Adiciona o histórico de atendimento.
     if not historico.empty:
-        contexto += "\n\n=== HISTORICO DE ATENDIMENTO ===\n"
-        contexto += historico.to_csv(index=False)
+        contexto += (
+            "\n\n=== HISTÓRICO DE ATENDIMENTO ===\n"
+        )
 
+        contexto += historico.to_csv(
+            index=False
+        )
+
+    # Adiciona a pergunta realizada pelo usuário.
     prompt_usuario = f"""
 Pergunta do usuário:
 \"\"\"{pergunta}\"\"\"
 """
 
-    return prompt_sistema + "\n\n" + contexto + "\n\n" + prompt_usuario
+    return (
+        prompt_sistema
+        + "\n\n"
+        + contexto
+        + "\n\n"
+        + prompt_usuario
+    )
 
-# 6. Função para chamar o Gemini
-def chamar_gemini(prompt):
+
+# ============================================================
+# 7. FUNÇÃO PARA CHAMAR A GROQ
+# ============================================================
+
+def chamar_groq(
+    client,
+    prompt
+):
+
     try:
-        response = client.models.generate_content(
+        # Envia o prompt para o modelo da Groq.
+        chat_completion = client.chat.completions.create(
             model=MODEL_NAME,
-            contents=prompt
+            messages=[
+                {
+                    "role": "system",
+                    "content": prompt
+                }
+            ],
+            temperature=0.5,
+            max_tokens=2048
         )
 
-        texto = response.text
-        texto = re.sub(r"^(Olá|Oi|Saudações)[^a-zA-Z]*", "", texto, flags=re.IGNORECASE)
+        # Recupera o conteúdo da resposta.
+        texto = (
+            chat_completion
+            .choices[0]
+            .message
+            .content
+        )
+
+        # Remove apenas possíveis saudações artificiais.
+        texto = re.sub(
+            r"^(Olá|Oi|Saudações)[^a-zA-ZÀ-ÿ]*",
+            "",
+            texto,
+            flags=re.IGNORECASE
+        )
 
         return texto.strip()
 
-    except Exception as e:
-        erro = str(e)
+    except Exception as erro:
+        mensagem_erro = str(erro)
 
-        if "503" in erro or "UNAVAILABLE" in erro:
-            return "O Edu está temporariamente indisponível porque o modelo de IA está com alta demanda. Tente novamente em alguns instantes."
+        if "401" in mensagem_erro:
+            return (
+                "A chave da API Groq não foi aceita. "
+                "Verifique a chave informada."
+            )
 
-        if "429" in erro:
-            return "O limite de uso da API foi atingido no momento. Tente novamente mais tarde."
+        if "429" in mensagem_erro:
+            return (
+                "O limite de uso da API Groq foi atingido. "
+                "Tente novamente em alguns instantes."
+            )
 
-        if "403" in erro:
-            return "Houve um problema com a chave da API Gemini. Verifique se a chave está válida no arquivo .env."
+        if (
+            "503" in mensagem_erro
+            or "UNAVAILABLE" in mensagem_erro
+        ):
+            return (
+                "O Edu está temporariamente indisponível. "
+                "Tente novamente em alguns instantes."
+            )
 
-        return "Não consegui consultar a IA agora. Erro: " + erro
+        return (
+            "Não consegui consultar a IA agora. Erro: "
+            + mensagem_erro
+        )
 
-# 7. Interface Streamlit
+
+# ============================================================
+# 8. INTERFACE PRINCIPAL
+# ============================================================
+
 def main():
-    st.set_page_config(page_title="Edu - Educador Financeiro (Gemini)", page_icon="💸")
-    st.title("💸 Edu - Educador Financeiro Inteligente (versão Gemini)")
-    st.write("Agente de IA que ensina finanças pessoais baseado nos seus dados reais e em informações de produtos financeiros.")
 
-    pergunta = st.text_area("Digite sua pergunta:", height=100)
+    # Título principal do Edu.
+    st.title(
+        "💸 Edu - Educador Financeiro Inteligente"
+    )
 
+    # Texto de apresentação.
+    st.write(
+        "Agente de IA que ensina finanças pessoais "
+        "com base nos dados cadastrados no FinTrack."
+    )
+
+    # Campo da pergunta.
+    pergunta = st.text_area(
+        "Digite sua pergunta:",
+        height=100
+    )
+
+    # Botão que inicia a consulta.
     if st.button("Perguntar para o Edu"):
-        if not pergunta.strip():
-            st.warning("Digite uma pergunta.")
+
+        # Verifica se o usuário forneceu a chave da Groq.
+        if not groq_api_key:
+            st.warning(
+                "Insira sua API Key da Groq na barra lateral."
+            )
             return
 
-        palavras_cotacao = ["dólar", "dolar", "dollar", "usd", "euro", "eur", "bitcoin", "btc"]
+        # Verifica se foi feita uma pergunta.
+        if not pergunta.strip():
+            st.warning(
+                "Digite uma pergunta."
+            )
+            return
+
+        try:
+            # Cria o cliente com a chave fornecida pelo usuário.
+            client = Groq(
+                api_key=groq_api_key
+            )
+
+        except Exception as erro:
+            st.error(
+                "Não foi possível inicializar a Groq: "
+                f"{erro}"
+            )
+            return
+
+        # Palavras utilizadas para detectar consulta de cotação.
+        palavras_cotacao = [
+            "dólar",
+            "dolar",
+            "dollar",
+            "usd",
+            "euro",
+            "eur",
+            "bitcoin",
+            "btc"
+        ]
 
         cotacao_detectada = None
+
+        # Procura uma moeda dentro da pergunta.
         for palavra in palavras_cotacao:
             if palavra in pergunta.lower():
                 cotacao_detectada = palavra
                 break
 
         resposta_cotacao = None
-        if cotacao_detectada:
-            resposta_cotacao = buscar_cotacao(cotacao_detectada)
 
+        # Consulta a cotação caso uma moeda seja identificada.
+        if cotacao_detectada:
+            resposta_cotacao = buscar_cotacao(
+                cotacao_detectada
+            )
+
+        # Carrega novamente os dados do FinTrack.
         perfil, transacoes, historico, produtos = carregar_bases()
 
-        prompt = montar_prompt(pergunta, perfil, transacoes, historico, produtos)
-        resposta_edu = chamar_gemini(prompt)
+        # Monta o prompt com os dados financeiros.
+        prompt = montar_prompt(
+            pergunta,
+            perfil,
+            transacoes,
+            historico,
+            produtos
+        )
 
-        st.markdown("### Resposta do Edu:")
+        # Mostra um indicador de processamento.
+        with st.spinner(
+            "Analisando sua pergunta..."
+        ):
+            resposta_edu = chamar_groq(
+                client,
+                prompt
+            )
 
+        st.markdown(
+            "### Resposta do Edu:"
+        )
+
+        # Exibe a cotação quando disponível.
         if resposta_cotacao:
-            st.success(f"💱 Cotação atual ({cotacao_detectada.upper()}): **R$ {resposta_cotacao:.2f}**")
+            st.success(
+                f"💱 Cotação atual "
+                f"({cotacao_detectada.upper()}): "
+                f"**R$ {resposta_cotacao:.2f}**"
+            )
+
         elif cotacao_detectada:
-            st.error("Não consegui obter a cotação agora. Tente novamente em instantes.")
+            st.error(
+                "Não consegui obter a cotação agora. "
+                "Tente novamente em instantes."
+            )
 
-        st.write(resposta_edu)
+        # Exibe a resposta da inteligência artificial.
+        st.write(
+            resposta_edu
+        )
 
+
+# Executa a função principal quando o arquivo for iniciado.
 if __name__ == "__main__":
     main()
