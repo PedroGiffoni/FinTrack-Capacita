@@ -33,30 +33,103 @@ Inicialmente criado como uma aplicação em console para prática de Programaç�
 - Dashboard
 - Integração com Inteligência Artificial
 
-Além do sistema principal, o projeto conta com o **Edu IA**, um consultor financeiro desenvolvido em Python utilizando a API do Google Gemini.
+Além do sistema principal em Java, o projeto possui o **Edu IA**, um educador financeiro que utiliza as transações cadastradas no FinTrack como contexto para responder perguntas sobre finanças pessoais.
 
 ---
 
 # 🚀 Funcionalidades
 
-## Cadastro de transações
+O FinTrack possui um menu interativo executado pelo terminal.
 
-O usuário pode cadastrar:
+```text
+===== FINTRACK - SEU CONTROLE FINANCEIRO =====
 
-- Receitas
-- Despesas
-- Transações Mensais
+1. Adicionar nova transação
+2. Listar transações
+3. Mostrar saldo atual
+4. Remover transação
+5. Relatório de receitas
+6. Relatório de despesas
+7. Relatório por categoria
+8. Dashboard financeiro
+9. Edu - Educação financeira com IA
+0. Sair
+```
 
-Cada transação possui:
+---
 
-- ID automático
-- Categoria
-- Descrição
-- Valor
-- Tipo
-- Data
 
-Caso seja uma transação recorrente, também é informado o dia de vencimento ou recebimento.
+O usuário pode cadastrar novas movimentações financeiras informando:
+
+- Categoria;
+- Descrição;
+- Valor;
+- Tipo da transação;
+- Data;
+- Se a transação é mensal;
+- Dia de vencimento ou recebimento, quando aplicável.
+
+As transações podem ser classificadas como:
+
+```text
+Receita
+Despesa
+```
+
+Entre as categorias disponíveis estão:
+
+```text
+Alimentação
+Transporte
+Moradia
+Saúde
+Educação
+Lazer
+Salário
+Freelance
+Investimentos
+Outros
+```
+
+---
+
+## 📋 Listagem de transações
+
+O sistema permite visualizar todas as transações cadastradas.
+
+Cada transação possui informações como:
+
+- ID;
+- Descrição;
+- Valor;
+- Tipo;
+- Categoria;
+- Data.
+
+As transações mensais também apresentam o dia de vencimento ou recebimento.
+
+---
+
+## 💰 Cálculo do saldo
+
+O saldo é calculado considerando o impacto de cada transação:
+
+```text
+Receita → adiciona valor ao saldo
+Despesa → subtrai valor do saldo
+```
+
+O cálculo é realizado através do comportamento definido na classe `Transacao`.
+
+---
+
+## 🗑️ Remoção de transações
+
+Cada transação possui um ID único.
+
+O usuário pode informar o ID de uma transação para removê-la do sistema.
+
+Após a remoção, o arquivo de dados é atualizado automaticamente.
 
 ---
 
@@ -98,25 +171,21 @@ R$ 3.540,00
 
 ---
 
-# 🤖 Edu IA
+# 🤖 Edu IA — Educador Financeiro Inteligente
 
-O projeto possui integração com o **Edu IA**.
+O **Edu IA** é o módulo de Inteligência Artificial integrado ao FinTrack.
 
-O Edu é uma aplicação desenvolvida em Python utilizando:
+Ele foi desenvolvido em:
 
-- Streamlit
-- Google Gemini
-- API AwesomeAPI (cotações)
-- Pandas
+- Python;
+- Streamlit;
+- Groq;
+- GPT-OSS 20B;
+- Pandas;
+- Requests.
 
-Ao selecionar a opção **9** do menu do FinTrack, o Edu é iniciado automaticamente.
+O Edu utiliza as informações financeiras cadastradas no FinTrack para fornecer respostas mais contextualizadas sobre finanças pessoais.
 
-O Edu utiliza como base de conhecimento:
-
-- Perfil financeiro
-- Histórico de atendimento
-- Produtos financeiros
-- Transações cadastradas no FinTrack
 
 Dessa forma, a IA consegue responder perguntas considerando os dados reais do usuário.
 
@@ -129,6 +198,23 @@ Exemplos:
 > Meu saldo está saudável?
 
 > Como funciona Tesouro Direto?
+>
+> ## 🔑 API Key da Groq
+
+A chave da API não fica armazenada no código-fonte do projeto.
+
+Ao abrir o Edu IA, o próprio usuário deve informar sua API Key da Groq na barra lateral da aplicação.
+
+O campo é protegido:
+
+```text
+Insira sua API Key da Groq
+••••••••••••••••••••
+```
+
+Isso permite que cada pessoa utilize sua própria chave para acessar o modelo de Inteligência Artificial.
+
+A aplicação também disponibiliza na barra lateral um link para criação da chave na plataforma Groq.
 
 ---
 
@@ -262,7 +348,7 @@ src
 
 ## IA
 
-- Google Gemini
+- Groq
 
 ## Interface IA
 
@@ -274,60 +360,93 @@ src
 
 ---
 
-# ▶ Como executar
+## 1. Baixe ou clone o projeto
 
-## Executar o FinTrack
+Abra a pasta principal do projeto no computador.
 
-Compile:
-
-```bash
-javac -encoding UTF-8 -d build\classes src\app\Main.java src\Controller\*.java src\model\*.java src\utils\*.java src\exceptions\*.java
-```
-
-Execute:
-
-```bash
-java -cp build\classes app.Main
-```
+A estrutura deve manter o FinTrack Java e o Edu IA nas posições esperadas pelo código.
 
 ---
 
-## Executar o Edu IA
+## 2. Configure o Edu IA pela primeira vez
 
-Dentro da pasta:
+Antes da primeira execução, é necessário criar o ambiente virtual do Python e instalar as dependências.
 
-```
+Entre na pasta:
+
+```text
 eduIa
 ```
 
-execute:
+Crie o ambiente virtual:
 
-```bash
-streamlit run src/app.py
+```powershell
+python -m venv .venv
 ```
 
-Ou utilize:
+Ative o ambiente:
 
+```powershell
+.\.venv\Scripts\Activate.ps1
 ```
-rodar_edu.bat
+
+Instale as dependências:
+
+```powershell
+pip install -r requirements.txt
 ```
+
+O arquivo `requirements.txt` deve conter as bibliotecas necessárias, como:
+
+```text
+streamlit
+pandas
+groq
+requests
+```
+
+Depois da instalação inicial, não é necessário repetir esse processo toda vez que utilizar o programa.
 
 ---
 
-# 📸 Menu Principal
+# 🚀 Execução simplificada com `rodar_fintrack.bat`
+
+Depois que o projeto estiver configurado, localize o arquivo:
 
 ```text
-===== FINTRACK =====
+rodar_fintrack.bat
+```
 
-1. Adicionar transação
+na pasta principal do projeto.
+
+Execute com:
+
+```text
+duplo clique
+```
+
+ou, pelo terminal:
+
+```powershell
+.\rodar_fintrack.bat
+```
+
+O arquivo `.bat` executa os comandos necessários para iniciar o FinTrack Java.
+
+Após a inicialização, o menu será exibido no terminal:
+
+```text
+===== FINTRACK - SEU CONTROLE FINANCEIRO =====
+
+1. Adicionar nova transação
 2. Listar transações
-3. Mostrar saldo
+3. Mostrar saldo atual
 4. Remover transação
 5. Relatório de receitas
 6. Relatório de despesas
 7. Relatório por categoria
 8. Dashboard financeiro
-9. Edu IA
+9. Edu - Educação financeira com IA
 0. Sair
 ```
 
@@ -346,7 +465,6 @@ Próximas implementações:
 - Dashboard gráfico
 - Deploy em nuvem
 - Aplicação mobile
-- Integração em tempo real com IA
 - Importação de extratos bancários
 - Exportação para PDF e Excel
 
@@ -356,7 +474,7 @@ Próximas implementações:
 
 ### Pedro Giffoni
 
-Fotógrafo publicitário e desenvolvedor em transição para a área de tecnologia, com foco em Java, Inteligência Artificial e Visão Computacional.
+Desenvolvedor em transição para a área de tecnologia, com foco em Java, Inteligência Artificial e Visão Computacional.
 
 GitHub:
 
