@@ -10,7 +10,8 @@ Controle suas receitas e despesas, acompanhe sua evolução financeira e conte c
 ![POO](https://img.shields.io/badge/POO-Programação%20Orientada%20a%20Objetos-blue?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.x-yellow?style=for-the-badge&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-red?style=for-the-badge&logo=streamlit)
-![Gemini](https://img.shields.io/badge/Google-Gemini-blue?style=for-the-badge&logo=google)
+![Groq](https://img.shields.io/badge/Groq-API-orange?style=for-the-badge)
+![GPT OSS](https://img.shields.io/badge/Modelo-GPT--OSS--20B-blue?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-success?style=for-the-badge)
 
 </div>
