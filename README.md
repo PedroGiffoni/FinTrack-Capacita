@@ -456,19 +456,29 @@ Após a inicialização, o menu será exibido no terminal:
 
 # 🔮 Evoluções Futuras
 
-O projeto foi planejado para crescer.
+O FinTrack foi desenvolvido como um projeto de aprendizado em Java e foi planejado para continuar evoluindo junto com o avanço dos conhecimentos adquiridos durante o curso.
 
-Próximas implementações:
+Atualmente, o sistema possui sua aplicação principal desenvolvida em **Java** e conta com a integração do **Edu**, um educador financeiro com Inteligência Artificial.
 
-- Interface Web
+Como evolução futura, o objetivo é desenvolver **toda a aplicação utilizando o ecossistema Java**, incluindo a integração do Edu diretamente ao sistema, eliminando a necessidade de uma aplicação externa para acessar a Inteligência Artificial.
+
+Dessa forma, o projeto poderá evoluir de uma aplicação em console para uma solução completa, mantendo o **Java como tecnologia principal em todas as camadas da aplicação**.
+
+### Próximas implementações:
+
+- Migração completa do Edu para Java
+- Integração direta com a API de Inteligência Artificial através do Java
+- Interface Web desenvolvida no ecossistema Java
 - API REST com Spring Boot
 - Banco de Dados PostgreSQL
-- Login de usuários
-- Dashboard gráfico
-- Deploy em nuvem
+- Sistema de cadastro e login de usuários
+- Dashboard financeiro gráfico
+- Deploy da aplicação em nuvem
 - Aplicação mobile
 - Importação de extratos bancários
-- Exportação para PDF e Excel
+- Exportação de relatórios para PDF e Excel
+
+> ☕ **Objetivo de evolução:** transformar o FinTrack em uma aplicação completa desenvolvida no ecossistema Java, desde a lógica de negócio e persistência dos dados até a API, interface e integração com Inteligência Artificial.
 
 ---
 
@@ -476,7 +486,7 @@ Próximas implementações:
 
 ### Pedro Giffoni
 
-Desenvolvedor em transição para a área de tecnologia, com foco em Java, Inteligência Artificial e Visão Computacional.
+Desenvolvedor com foco em Java, Inteligência Artificial e Visão Computacional.
 
 GitHub:
 
