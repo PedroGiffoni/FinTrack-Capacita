@@ -1,7 +1,8 @@
+// Agrupa esta classe na camada exceptions do projeto.
 package exceptions;
 
 /**
- * Exceção personalizada utilizada pelo sistema FinTrack.
+ * Exceção personalizada utilizada pelo sistema.
  *
  * Esta classe representa situações em que o usuário informa
  * um dado inválido durante a utilização da aplicação.
@@ -23,6 +24,7 @@ public class EntradaInvalidaException extends Exception {
      * @param mensagem descrição do erro ocorrido.
      */
     public EntradaInvalidaException(String mensagem) {
+        // Encaminha os atributos ao construtor da classe pai, reaproveitando seu estado e validações.
         super(mensagem);
     }
 }

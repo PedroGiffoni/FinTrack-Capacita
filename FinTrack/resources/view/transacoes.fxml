@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.control.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.image.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.geometry.Rectangle2D?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.layout.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.geometry.Insets?>
+<!-- Divide a tela em regiões e associa o controller informado por fx:controller. -->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.TransacoesController" styleClass="pagina">
+    <!-- Região superior com identificação da tela, filtros ou resumo. -->
+    <top>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="24">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="28" right="32" bottom="24" left="32"/></padding>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+                    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="identidade" maxWidth="290">
+                        <!-- Exibe a logomarca a partir dos recursos empacotados do projeto. -->
+                        <ImageView fitWidth="52" fitHeight="52" preserveRatio="true" smooth="true">
+                            <image><Image url="@../images/fintrack.png"/></image>
+                            <!-- Seleciona a região da imagem que será exibida, preservando a imagem original. -->
+                            <viewport><Rectangle2D minX="350" minY="190" width="555" height="545"/></viewport>
+                        </ImageView>
+                        <!-- Exibe a logomarca a partir dos recursos empacotados do projeto. -->
+                        <ImageView fitWidth="178" fitHeight="54" preserveRatio="true" smooth="true">
+                            <image><Image url="@../images/fintrack.png"/></image>
+                            <!-- Seleciona a região da imagem que será exibida, preservando a imagem original. -->
+                            <viewport><Rectangle2D minX="100" minY="775" width="1050" height="315"/></viewport>
+                        </ImageView>
+                    </HBox>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                    <Label text="Seu controle financeiro em um só lugar." styleClass="subtitulo"/>
+                </VBox>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id relatorio corresponde ao campo @FXML. -->
+                <Button fx:id="relatorio" text="Relatório financeiro" styleClass="secundario"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id nova corresponde ao campo @FXML. -->
+                <Button fx:id="nova" text="+ Nova transação" styleClass="primario"/>
+            </HBox>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox spacing="16">
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="8" styleClass="cartao" HBox.hgrow="ALWAYS">
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                    <Label text="RECEITAS" styleClass="rotulo-cartao"/>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id totalReceitas corresponde ao campo @FXML. -->
+                    <Label fx:id="totalReceitas" text="R$ 0,00" styleClass="valor-cartao,positivo"/>
+                </VBox>
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="8" styleClass="cartao" HBox.hgrow="ALWAYS">
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                    <Label text="DESPESAS" styleClass="rotulo-cartao"/>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id totalDespesas corresponde ao campo @FXML. -->
+                    <Label fx:id="totalDespesas" text="R$ 0,00" styleClass="valor-cartao,negativo"/>
+                </VBox>
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="8" styleClass="cartao" HBox.hgrow="ALWAYS">
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                    <Label text="SALDO" styleClass="rotulo-cartao"/>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id saldo corresponde ao campo @FXML. -->
+                    <Label fx:id="saldo" text="R$ 0,00" styleClass="valor-cartao"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+    <!-- Área principal que recebe tabela, formulário, relatório ou conversa. -->
+    <center>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="14">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="0" right="32" bottom="12" left="32"/></padding>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Transações" styleClass="titulo-secao"/>
+                <!-- Ocupa espaço flexível para separar e alinhar grupos de controles. -->
+                <Region HBox.hgrow="ALWAYS"/>
+                <!-- Recebe uma entrada em uma linha; a validação fica no controller e no modelo. O fx:id busca corresponde ao campo @FXML. -->
+                <TextField fx:id="busca" promptText="Buscar pela descrição" prefWidth="240"/>
+                <!-- Oferece opções de seleção que o controller preenche na inicialização. O fx:id filtroTipo corresponde ao campo @FXML. -->
+                <ComboBox fx:id="filtroTipo" prefWidth="170"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id atualizar corresponde ao campo @FXML. -->
+                <Button fx:id="atualizar" text="Filtrar"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id limpar corresponde ao campo @FXML. -->
+                <Button fx:id="limpar" text="Limpar" styleClass="secundario"/>
+            </HBox>
+            <!-- Apresenta a coleção atual; as funções das colunas ficam no controller. O fx:id tabela corresponde ao campo @FXML. -->
+            <TableView fx:id="tabela" VBox.vgrow="ALWAYS">
+                <!-- A política ajusta as colunas à largura disponível da tabela. -->
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                <!-- Declara as colunas visuais da tabela. -->
+                <columns>
+                    <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaData corresponde ao campo @FXML. -->
+                    <TableColumn fx:id="colunaData" text="Data" prefWidth="110" minWidth="100"/>
+                    <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaDescricao corresponde ao campo @FXML. -->
+                    <TableColumn fx:id="colunaDescricao" text="Descrição" prefWidth="310" minWidth="200"/>
+                    <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaCategoria corresponde ao campo @FXML. -->
+                    <TableColumn fx:id="colunaCategoria" text="Categoria" prefWidth="150"/>
+                    <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaTipo corresponde ao campo @FXML. -->
+                    <TableColumn fx:id="colunaTipo" text="Tipo" prefWidth="100"/>
+                    <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaValor corresponde ao campo @FXML. -->
+                    <TableColumn fx:id="colunaValor" text="Valor" prefWidth="150" styleClass="coluna-valor"/>
+                    <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaMensal corresponde ao campo @FXML. -->
+                    <TableColumn fx:id="colunaMensal" text="Mensal" prefWidth="90"/>
+                </columns>
+            </TableView>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id status corresponde ao campo @FXML. -->
+                <Label fx:id="status" text="Nenhuma transação" styleClass="subtitulo" HBox.hgrow="ALWAYS"/>
+                <!-- Ocupa espaço flexível para separar e alinhar grupos de controles. -->
+                <Region HBox.hgrow="ALWAYS"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id editar corresponde ao campo @FXML. -->
+                <Button fx:id="editar" text="Editar selecionada" styleClass="secundario"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id remover corresponde ao campo @FXML. -->
+                <Button fx:id="remover" text="Remover selecionada" styleClass="perigo"/>
+            </HBox>
+        </VBox>
+    </center>
+    <!-- Rodapé com ações de confirmação, cancelamento ou retorno. -->
+    <bottom>
+        <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="rodape">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="14" right="32" bottom="14" left="32"/></padding>
+            <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="FinTrack • Finanças pessoais" styleClass="subtitulo"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Converse com o Edu sobre suas finanças." styleClass="subtitulo"/>
+            </VBox>
+            <!-- Ocupa espaço flexível para separar e alinhar grupos de controles. -->
+            <Region HBox.hgrow="ALWAYS"/>
+            <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id edu corresponde ao campo @FXML. -->
+            <Button fx:id="edu" text="Edu — Educação financeira" styleClass="primario"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,3 +1,4 @@
+// Agrupa esta classe na camada model do projeto.
 package model;
 
 /**
@@ -20,6 +21,7 @@ public class Despesa extends Transacao {
      * automaticamente como "despesa".
      */
     public Despesa(String categoria, String descricao, double valor, String data) {
+        // Fixa o tipo despesa e reutiliza todas as validações da superclasse.
         super(categoria, descricao, valor, "despesa", data);
     }
 }

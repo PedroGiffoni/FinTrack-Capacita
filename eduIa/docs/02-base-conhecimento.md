@@ -7,7 +7,7 @@
 | `historico_atendimento.csv` | CSV     | Permite que o Edu mantenha continuidade no atendimento, entendendo temas já explicados e dúvidas recorrentes. |
 | `perfil_investidor.json`    | JSON    | Ajuda o Edu a adaptar explicações ao perfil do usuário.                                                       |
 | `produtos_financeiros.json` | JSON    | Lista os produtos que o Edu pode explicar de forma educativa.                                                 |
-| `transacoes.csv`            | CSV     | Permite que o Edu analise padrões de gastos e use exemplos reais nas explicações.                             |
+| `fintrack.db`                | SQLite     | Permite que o Edu analise padrões de gastos e use exemplos reais nas explicações.                             |
 
 ---
 
@@ -28,7 +28,7 @@ import pandas as pd
 import json
 
 perfil = json.load(open('./data/perfil_investidor.json'))
-transacoes = pd.read_csv('./data/transacoes.csv')
+# As transações são consultadas na tabela transacoes de FinTrack/dados/fintrack.db.
 historico = pd.read_csv('./data/historico_atendimento.csv')
 produtos = json.load(open('./data/produtos_financeiros.json'))
 

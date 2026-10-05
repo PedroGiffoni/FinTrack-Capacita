@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.control.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.layout.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.geometry.Insets?>
+<!-- Divide a tela em regiões e associa o controller informado por fx:controller. -->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.TransacaoController" styleClass="pagina">
+    <!-- Região superior com identificação da tela, filtros ou resumo. -->
+    <top>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="6">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="28" right="32" bottom="18" left="32"/></padding>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id titulo corresponde ao campo @FXML. -->
+            <Label fx:id="titulo" text="Nova transação" styleClass="titulo"/>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+            <Label text="Preencha os dados da movimentação." styleClass="subtitulo"/>
+        </VBox>
+    </top>
+    <!-- Área principal que recebe tabela, formulário, relatório ou conversa. -->
+    <center>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="16">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="0" right="32" bottom="12" left="32"/></padding>
+            <!-- Alinha campos em linhas e colunas; os índices dos controles determinam sua posição. -->
+            <GridPane hgap="16" vgap="14">
+                <!-- Estabelece a distribuição de espaço nas colunas do GridPane. -->
+                <columnConstraints>
+                    <!-- Distribui a largura das colunas do formulário. -->
+                    <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+                    <!-- Distribui a largura das colunas do formulário. -->
+                    <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+                </columnConstraints>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Tipo" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Categoria" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <!-- Oferece opções de seleção que o controller preenche na inicialização. O fx:id tipo corresponde ao campo @FXML. -->
+                <ComboBox fx:id="tipo" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <!-- Oferece opções de seleção que o controller preenche na inicialização. O fx:id categoria corresponde ao campo @FXML. -->
+                <ComboBox fx:id="categoria" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Descrição" GridPane.rowIndex="2" GridPane.columnSpan="2"/>
+                <!-- Recebe texto com várias linhas e quebra conforme a largura disponível. O fx:id descricao corresponde ao campo @FXML. -->
+                <TextArea fx:id="descricao" promptText="Ex.: compras do mês" wrapText="true" prefRowCount="3"
+                          GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Valor (R$)" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Data" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <!-- Recebe uma entrada em uma linha; a validação fica no controller e no modelo. O fx:id valor corresponde ao campo @FXML. -->
+                <TextField fx:id="valor" promptText="Ex.: 1250,50" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <!-- Combina calendário e entrada textual, convertidos para LocalDate. O fx:id data corresponde ao campo @FXML. -->
+                <DatePicker fx:id="data" maxWidth="Infinity" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            </GridPane>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox spacing="16" alignment="CENTER_LEFT">
+                <!-- Representa uma escolha booleana consultada pelo controller. O fx:id mensal corresponde ao campo @FXML. -->
+                <CheckBox fx:id="mensal" text="Transação mensal"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Dia de vencimento/recebimento"/>
+                <!-- Apresenta um número dentro do intervalo definido pelo controller. O fx:id dia corresponde ao campo @FXML. -->
+                <Spinner fx:id="dia" prefWidth="90" editable="false"/>
+            </HBox>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+            <Label text="A opção mensal registra o dia previsto. Novas parcelas não são geradas automaticamente."
+                   wrapText="true" styleClass="subtitulo"/>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id erro corresponde ao campo @FXML. -->
+            <Label fx:id="erro" wrapText="true" styleClass="erro" minHeight="42"/>
+        </VBox>
+    </center>
+    <!-- Rodapé com ações de confirmação, cancelamento ou retorno. -->
+    <bottom>
+        <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+        <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="rodape">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="18" right="32" bottom="18" left="32"/></padding>
+            <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id cancelar corresponde ao campo @FXML. -->
+            <Button fx:id="cancelar" text="Cancelar" styleClass="secundario"/>
+            <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id salvar corresponde ao campo @FXML. -->
+            <Button fx:id="salvar" text="Salvar transação" defaultButton="true" styleClass="primario"/>
+        </HBox>
+    </bottom>
+</BorderPane>

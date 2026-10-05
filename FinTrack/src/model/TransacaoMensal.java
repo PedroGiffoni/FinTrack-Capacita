@@ -1,3 +1,4 @@
+// Agrupa esta classe na camada model do projeto.
 package model;
 
 /**
@@ -17,7 +18,7 @@ public class TransacaoMensal extends Transacao {
 
     /**
      * Construtor utilizado ao carregar uma transação mensal
-     * salva no arquivo.
+     * salva no banco de dados.
      *
      * @param id Identificador da transação.
      * @param descricao Descrição da transação.
@@ -31,8 +32,10 @@ public class TransacaoMensal extends Transacao {
                            String tipo, String categoria,
                            String data, int diaVencimento) {
 
+        // Reutiliza as validações do modelo e preserva o identificador carregado do banco.
         super(id, descricao, valor, tipo, categoria, data);
-        this.diaVencimento = diaVencimento;
+        // O atributo adicional também passa por validação ao construir o objeto.
+        setDiaVencimento(diaVencimento);
     }
 
     /**
@@ -49,8 +52,10 @@ public class TransacaoMensal extends Transacao {
                            String tipo, String categoria,
                            String data, int diaVencimento) {
 
+        // Cria os atributos comuns com o construtor da superclasse.
         super(categoria, descricao, valor, tipo, data);
-        this.diaVencimento = diaVencimento;
+        // O atributo adicional também passa por validação ao construir o objeto.
+        setDiaVencimento(diaVencimento);
     }
 
     // ==========================================================
@@ -58,10 +63,18 @@ public class TransacaoMensal extends Transacao {
     // ==========================================================
 
     public int getDiaVencimento() {
+        // Entrega dia vencimento ao chamador sem modificar o atributo.
         return diaVencimento;
     }
 
+    // Atualiza dia vencimento, aplicando a validação definida para esse atributo.
     public void setDiaVencimento(int diaVencimento) {
+        // O dia deve pertencer ao intervalo possível de dias do mês.
+        if (diaVencimento < 1 || diaVencimento > 31) {
+            // Interrompe este fluxo com uma mensagem que o chamador pode apresentar ou verificar.
+            throw new IllegalArgumentException("O dia de vencimento deve estar entre 1 e 31.");
+        }
+        // Só guarda o dia depois de verificar seu intervalo.
         this.diaVencimento = diaVencimento;
     }
 
@@ -72,8 +85,11 @@ public class TransacaoMensal extends Transacao {
      * o dia de vencimento ou recebimento.
      */
     @Override
+    // Sobrescreve a apresentação comum para acrescentar o dia de vencimento mensal.
     public void exibirTransacao() {
+        // Reutiliza a apresentação comum do console antes de acrescentar o vencimento.
         super.exibirTransacao();
+        // Apresenta esta informação no terminal da versão de console.
         System.out.println("Transação mensal - Dia: " + diaVencimento);
     }
 }

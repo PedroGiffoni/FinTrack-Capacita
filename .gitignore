@@ -1,0 +1,29 @@
+# Resultados da compilação e dependências baixadas pelo Maven.
+/target/
+/.m2/
+# Arquivos temporários de desenvolvimento.
+/tmp/
+# Banco pessoal e arquivos auxiliares do SQLite; nunca publicar transações locais.
+/FinTrack/dados/*.db
+/FinTrack/dados/*.db-*
+/FinTrack/dados/*.sqlite
+# Artefatos e configurações particulares da IDE antiga.
+/FinTrack/build/
+/FinTrack/dist/
+/FinTrack/nbproject/private/
+# Ambiente e cache do módulo Python legado.
+__pycache__/
+.venv/
+.env
+
+# Logs locais de execução.
+/eduIa/logs/
+.venv-anterior/
+
+# Arquivo de migração que pode conter registros financeiros pessoais.
+/FinTrack/dados/*.csv
+# Preferências locais do editor.
+/.vscode/
+# Credenciais protegidas e variáveis de ambiente particulares.
+*.dpapi
+.env.*

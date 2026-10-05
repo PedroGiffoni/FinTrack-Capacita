@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.control.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.chart.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.layout.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.geometry.Insets?>
+<!-- Divide a tela em regiões e associa o controller informado por fx:controller. -->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.RelatorioController" styleClass="pagina">
+    <!-- Região superior com identificação da tela, filtros ou resumo. -->
+    <top>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="16">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="24" right="28" bottom="16" left="28"/></padding>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+            <Label text="Relatório financeiro" styleClass="titulo"/>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox alignment="BOTTOM_LEFT" spacing="12">
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. O fx:id inicio corresponde ao campo @FXML. -->
+                <VBox spacing="6"><Label text="De"/><DatePicker fx:id="inicio" prefWidth="150"/></VBox>
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. O fx:id fim corresponde ao campo @FXML. -->
+                <VBox spacing="6"><Label text="Até"/><DatePicker fx:id="fim" prefWidth="150"/></VBox>
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id categoria corresponde ao campo @FXML. -->
+                    <Label text="Categoria"/><ComboBox fx:id="categoria" maxWidth="Infinity"/>
+                </VBox>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id aplicar corresponde ao campo @FXML. -->
+                <Button fx:id="aplicar" text="Aplicar" styleClass="primario"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id limpar corresponde ao campo @FXML. -->
+                <Button fx:id="limpar" text="Limpar" styleClass="secundario"/>
+            </HBox>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox spacing="14">
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="8" styleClass="cartao" HBox.hgrow="ALWAYS">
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                    <Label text="RECEITAS" styleClass="rotulo-cartao"/>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id receitas corresponde ao campo @FXML. -->
+                    <Label fx:id="receitas" text="R$ 0,00" styleClass="valor-cartao,positivo"/>
+                </VBox>
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="8" styleClass="cartao" HBox.hgrow="ALWAYS">
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                    <Label text="DESPESAS" styleClass="rotulo-cartao"/>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id despesas corresponde ao campo @FXML. -->
+                    <Label fx:id="despesas" text="R$ 0,00" styleClass="valor-cartao,negativo"/>
+                </VBox>
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="8" styleClass="cartao" HBox.hgrow="ALWAYS">
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                    <Label text="SALDO" styleClass="rotulo-cartao"/>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id saldo corresponde ao campo @FXML. -->
+                    <Label fx:id="saldo" text="R$ 0,00" styleClass="valor-cartao"/>
+                </VBox>
+            </HBox>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id erro corresponde ao campo @FXML. -->
+            <Label fx:id="erro" text="" wrapText="true" styleClass="erro"/>
+        </VBox>
+    </top>
+    <!-- Área principal que recebe tabela, formulário, relatório ou conversa. -->
+    <center>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="12">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="0" right="28" bottom="12" left="28"/></padding>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+            <Label text="Despesas por categoria" styleClass="titulo-secao"/>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox spacing="20" VBox.vgrow="ALWAYS">
+                <!-- Recebe despesas por categoria já calculadas pelo serviço. O fx:id grafico corresponde ao campo @FXML. -->
+                <PieChart fx:id="grafico" labelsVisible="true" legendVisible="true" minWidth="360" HBox.hgrow="ALWAYS"/>
+                <!-- Apresenta a coleção atual; as funções das colunas ficam no controller. O fx:id tabela corresponde ao campo @FXML. -->
+                <TableView fx:id="tabela" prefWidth="360" HBox.hgrow="ALWAYS">
+                    <!-- A política ajusta as colunas à largura disponível da tabela. -->
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    <!-- Declara as colunas visuais da tabela. -->
+                    <columns>
+                        <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaCategoria corresponde ao campo @FXML. -->
+                        <TableColumn fx:id="colunaCategoria" text="Categoria" prefWidth="210"/>
+                        <!-- Identifica uma coluna cujas células recebem atributos do objeto de cada linha. O fx:id colunaTotal corresponde ao campo @FXML. -->
+                        <TableColumn fx:id="colunaTotal" text="Total" prefWidth="150"/>
+                    </columns>
+                </TableView>
+            </HBox>
+            <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id resumo corresponde ao campo @FXML. -->
+            <Label fx:id="resumo" styleClass="subtitulo"/>
+        </VBox>
+    </center>
+    <!-- Rodapé com ações de confirmação, cancelamento ou retorno. -->
+    <bottom>
+        <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+        <HBox alignment="CENTER_RIGHT" styleClass="rodape">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="14" right="28" bottom="14" left="28"/></padding>
+            <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id fechar corresponde ao campo @FXML. -->
+            <Button fx:id="fechar" text="Fechar" styleClass="secundario"/>
+        </HBox>
+    </bottom>
+</BorderPane>

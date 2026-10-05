@@ -1,162 +1,46 @@
-📘 README 
+# Edu — módulo legado opcional
 
-## — EDU: Educador Financeiro Inteligente
+O Edu integrado ao FinTrack é implementado em **Java**, dentro da interface JavaFX, e não depende de Python ou Streamlit. Consulte o [README principal](../README.md) e o [guia do código Java](../docs/guia-codigo.md).
 
-💡 Sobre o Projeto
+Esta pasta preserva a versão anterior do Edu para estudo e execução independente. As respostas são obtidas pela Groq e as transações são consultadas no mesmo SQLite do FinTrack, em modo somente leitura.
 
-O Edu é um agente de IA focado em educação financeira, criado para explicar conceitos de forma simples, personalizada e usando dados reais do usuário como exemplos.
-Ele também consulta cotações reais (dólar, euro, bitcoin etc.) através da AwesomeAPI.
+## Tecnologias
 
-O objetivo do Edu não é recomendar investimentos, mas ensinar, contextualizar e ajudar o usuário a entender melhor suas próprias finanças.
+Python 3.10 ou superior, Streamlit, Groq, Pandas, sqlite3 e Requests. As dependências estão em requirements.txt e são separadas das dependências Maven. A AwesomeAPI fornece as cotações da versão Streamlit.
 
-## 🚀 Tecnologias Utilizadas
-Python 3.10+
+## Execução no Windows
 
-Streamlit (interface)
+Na raiz do repositório:
 
-Google Gemini 2.5 Flash (LLM)
+```powershell
+.\configurar_edu.bat
+.\eduIa\rodar_edu.bat
+```
 
-AwesomeAPI (cotações em tempo real)
+O primeiro comando cria eduIa/.venv e instala as dependências. O segundo inicia o Streamlit no endereço local do computador.
 
-Pandas (manipulação de dados)
+Cadastre transações no FinTrack antes de consultar seu panorama. O banco padrão é FinTrack/dados/fintrack.db. A variável FINTRACK_BANCO permite indicar outro arquivo SQLite, incluindo bancos temporários de teste.
 
-dotenv (variáveis de ambiente)
+## Chave e contexto
 
-JSON/CSV (base de conhecimento)
+Informe a chave Groq no campo da interface. O link de criação abre o painel de chaves da Groq. Esta versão usa a credencial na sessão e não implementa o cofre DPAPI do Edu nativo Java.
 
-## 🧠 Como o Edu Funciona
-O Edu recebe:
+O código consulta novamente o banco ao preparar o contexto de uma pergunta. Os arquivos opcionais de perfil, produtos e histórico de atendimento complementam a versão antiga; eles não substituem o SQLite como origem das transações.
 
-Perfil do investidor
+As perguntas e o contexto utilizado são enviados à Groq. As cotações da versão Streamlit são independentes dos relatórios locais do aplicativo Java.
 
-Histórico de atendimento
+## Testes
 
-Transações financeiras
+Após configurar o ambiente, execute na raiz:
 
-Lista de produtos financeiros
+```powershell
+.\eduIa\.venv\Scripts\python.exe -m unittest discover -s eduIa/test -v
+```
 
-Esses dados são carregados automaticamente da pasta data/ e injetados no prompt do modelo.
+Os testes usam banco temporário e cliente Groq simulado, sem chave real. O teste Java de inicialização e encerramento do módulo legado pode ser habilitado separadamente:
 
-Quando o usuário faz uma pergunta, o Edu:
+```powershell
+mvn '-Dmaven.repo.local=.m2/repository' '-Dfintrack.testes.edu=true' '-Dtest=EduIntegrationTest' test
+```
 
-Analisa a intenção
-
-Verifica se há cotação envolvida
-
-Consulta a AwesomeAPI (se necessário)
-
-Monta um prompt completo com todos os dados
-
-Gera uma resposta clara, simples e personalizada
-
-## 🔐 Regras de Segurança e Comportamento
-O Edu foi projetado para ser seguro e evitar alucinações:
-
-Não inventa nomes
-
-Não cria saudações artificiais
-
-Não inventa dados que não vieram da API ou da base
-
-Não recomenda investimentos
-
-Admite quando não sabe algo
-
-Explica conceitos de forma simples
-
-Usa cotações reais quando disponíveis
-
-Se a API cair, responde de forma amigável (tratamento de erro 429/503)
-
-## 📂 Estrutura do Projeto
-
-'''
-📦 edu-financeiro
-┣ 📂 data
-┃ ┣ perfil_investidor.json
-┃ ┣ transacoes.csv
-┃ ┣ historico_atendimento.csv
-┃ ┗ produtos_financeiros.json
-┣ 📂 src
-┃ ┗ app.py
-┣ 01-documentacao-agente.md
-┣ 02-base-conhecimento.md
-┣ 03-prompts.md
-┣ 04-metricas.md
-┣ 05-pitch.md
-┗ README.md
-'''
-## ▶️ Como Rodar o Projeto
-
-1. Instale as dependências
-
-'''
-pip install -r requirements.txt
-''' 2. Configure sua chave da API Gemini
-Crie um arquivo .env na raiz:
-
-'''
-GEMINI_API_KEY=coloque_sua_chave_aqui
-''' 3. Execute o Streamlit
-'''
-streamlit run src/app.py
-'''
-
-## 💸 Funcionalidades Principais
-✔ Explicação de conceitos financeiros
-Ex.: CDI, Selic, FII, renda fixa, risco, câmbio.
-
-✔ Análise personalizada
-Usa seus próprios gastos e perfil para contextualizar.
-
-✔ Cotações em tempo real
-Dólar, euro, bitcoin etc.
-
-✔ Tratamento de erros
-Se a API do Gemini estiver indisponível, o Edu responde:
-
-“O serviço está temporariamente indisponível, mas posso te ajudar com outra dúvida.”
-
-✔ Linguagem simples e direta
-Sem jargões, sem enrolação.
-
-## 🧪 Avaliação e Métricas
-O projeto inclui um arquivo 04-metricas.md com:
-
-Métricas de assertividade, segurança e coerência
-
-Cenários de teste
-
-Formulário de feedback
-
-Espaço para registrar resultados
-
-## 🎤 Pitch do Projeto
-O arquivo 05-pitch.md contém:
-
-Estrutura do pitch de 3 minutos
-
-Roteiro completo
-
-Sugestões de demo
-
-Checklist final
-
-## 🛠 Tratamento de Erros do Gemini
-O app inclui proteção contra:
-
-429 (quota excedida)
-
-503 (modelo indisponível)
-
-Timeouts
-
-Falhas de rede
-
-Quando isso acontece, o Edu responde de forma amigável e continua funcionando.
-
-## 📜 Licença
-Este projeto é de uso educacional e pode ser adaptado livremente.
-
-## 🙋‍♂️ Autor
-Projeto desenvolvido por Pedro Giffoni, como parte do laboratório da DIO — BIA do Futuro.
+Para o trabalho do curso, a referência principal é a aplicação JavaFX e suas classes Java.

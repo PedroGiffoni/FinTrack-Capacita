@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Versão do formato do POM, distinta da versão do aplicativo. -->
+    <modelVersion>4.0.0</modelVersion>
+    <!-- Identifica o grupo ao qual pertence este projeto Maven. -->
+    <groupId>br.com.fintrack</groupId>
+    <!-- Nome do artefato que será produzido na pasta target. -->
+    <artifactId>fintrack</artifactId>
+    <!-- Versão desta fase do FinTrack. -->
+    <version>2.0.0</version>
+    <name>FinTrack</name>
+    <properties>
+        <!-- Compila com as APIs e o formato de bytecode do Java 17. -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <!-- Preserva os acentos dos fontes durante a compilação. -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Centraliza a versão compartilhada pelos módulos JavaFX. -->
+        <javafx.version>21.0.6</javafx.version>
+        <!-- Centraliza a versão da biblioteca de testes. -->
+        <junit.version>5.12.1</junit.version>
+    </properties>
+    <!-- Bibliotecas externas usadas na aplicação e nos testes. -->
+    <dependencies>
+        <!-- WebView apresenta o HTML produzido a partir do Markdown. -->
+        <dependency><groupId>org.openjfx</groupId><artifactId>javafx-web</artifactId><version>${javafx.version}</version></dependency>
+        <!-- Analisa a sintaxe Markdown e produz HTML. -->
+        <dependency><groupId>org.commonmark</groupId><artifactId>commonmark</artifactId><version>0.30.0</version></dependency>
+        <!-- Acrescenta suporte às tabelas Markdown no formato GFM. -->
+        <dependency><groupId>org.commonmark</groupId><artifactId>commonmark-ext-gfm-tables</artifactId><version>0.30.0</version></dependency>
+        <dependency>
+            <!-- Permite chamar funções nativas do Windows para proteger a chave com DPAPI. -->
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.18.0</version>
+        </dependency>
+        <dependency>
+            <!-- Serializa as mensagens e interpreta a resposta JSON da Groq. -->
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.12.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <!-- Fornece botões, tabelas, campos e gráficos da interface. -->
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <!-- Carrega as telas FXML e vincula seus controles aos controllers. -->
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <!-- Driver JDBC responsável pela conexão com o arquivo SQLite. -->
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.49.1.0</version>
+        </dependency>
+        <dependency>
+            <!-- Implementação sem saída de log para a dependência SLF4J do driver. -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>2.0.17</version>
+            <!-- A dependência é necessária ao executar, sem ser usada diretamente nos fontes. -->
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!-- JUnit executa as verificações automatizadas do projeto. -->
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <!-- Restringe a biblioteca à compilação e execução dos testes. -->
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <!-- Mantém a estrutura de fontes utilizada no projeto do curso. -->
+        <sourceDirectory>FinTrack/src</sourceDirectory>
+        <!-- Define onde Maven deve procurar os testes Java. -->
+        <testSourceDirectory>FinTrack/test</testSourceDirectory>
+        <resources>
+            <!-- Inclui telas, estilos e imagens no classpath da aplicação. -->
+            <resource><directory>FinTrack/resources</directory></resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <!-- Compila os fontes usando a versão de Java definida nas propriedades. -->
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <!-- Executa as classes de teste com JUnit. -->
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <!-- Disponibiliza o comando Maven javafx:run. -->
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <!-- Define a classe que inicia a interface JavaFX. -->
+                <configuration><mainClass>app.FinApp</mainClass></configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

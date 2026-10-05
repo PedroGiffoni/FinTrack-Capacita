@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.geometry.Insets?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.control.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.image.*?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.geometry.Rectangle2D?>
+<!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
+<?import javafx.scene.layout.*?>
+<!-- Divide a tela em regiões e associa o controller informado por fx:controller. -->
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EduController" styleClass="pagina">
+    <!-- Região superior com identificação da tela, filtros ou resumo. -->
+    <top>
+        <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="22" right="26" bottom="18" left="26"/></padding>
+            <!-- Exibe a logomarca a partir dos recursos empacotados do projeto. -->
+            <ImageView fitWidth="52" fitHeight="52" preserveRatio="true" smooth="true">
+                <image><Image url="@../images/fintrack.png"/></image>
+                <!-- Seleciona a região da imagem que será exibida, preservando a imagem original. -->
+                <viewport><Rectangle2D minX="350" minY="190" width="555" height="545"/></viewport>
+            </ImageView>
+            <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Edu" styleClass="marca"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label text="Educação financeira para o seu dia a dia" styleClass="subtitulo"/>
+            </VBox>
+            <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id novaConversa corresponde ao campo @FXML. -->
+            <Button fx:id="novaConversa" text="Nova conversa" styleClass="secundario"/>
+            <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id fechar corresponde ao campo @FXML. -->
+            <Button fx:id="fechar" text="Voltar ao FinTrack"/>
+        </HBox>
+    </top>
+    <!-- Painel lateral com panorama, credencial e consentimento de uso dos dados. -->
+    <left>
+        <!-- Permite ler conteúdo maior que a área disponível na janela. -->
+        <ScrollPane fitToWidth="true" prefWidth="300" styleClass="edu-lateral">
+        <!-- Define o conteúdo único do componente de rolagem. -->
+        <content>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="14" styleClass="edu-painel">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="0" right="18" bottom="24" left="26"/></padding>
+            <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+            <VBox spacing="8" styleClass="cartao">
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="Seu panorama" styleClass="titulo-secao"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="Todo o período cadastrado" styleClass="subtitulo"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="RECEITAS" styleClass="rotulo-cartao"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id receitas corresponde ao campo @FXML. -->
+                <Label minHeight="-Infinity" fx:id="receitas" styleClass="edu-valor,positivo"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="DESPESAS" styleClass="rotulo-cartao"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id despesas corresponde ao campo @FXML. -->
+                <Label minHeight="-Infinity" fx:id="despesas" styleClass="edu-valor,negativo"/>
+                <!-- Separa visualmente grupos de informações. -->
+                <Separator/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="SALDO" styleClass="rotulo-cartao"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id saldo corresponde ao campo @FXML. -->
+                <Label minHeight="-Infinity" fx:id="saldo" styleClass="edu-valor"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id quantidade corresponde ao campo @FXML. -->
+                <Label minHeight="-Infinity" fx:id="quantidade" styleClass="subtitulo" wrapText="true"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id atualizar corresponde ao campo @FXML. -->
+                <Button fx:id="atualizar" text="Atualizar panorama" maxWidth="Infinity" styleClass="secundario"/>
+            </VBox>
+            <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+            <VBox spacing="8" styleClass="cartao">
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="Conexão do Edu" styleClass="titulo-secao"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="Chave da Groq" labelFor="$chave"/>
+                <!-- Mascara a entrada da credencial; a proteção em disco depende do serviço DPAPI. O fx:id chave corresponde ao campo @FXML. -->
+                <PasswordField fx:id="chave" promptText="Informe sua chave"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id confirmarChave corresponde ao campo @FXML. -->
+                <Button fx:id="confirmarChave" text="Confirmar chave" maxWidth="Infinity" styleClass="primario"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id criarChave corresponde ao campo @FXML. -->
+                <Button fx:id="criarChave" text="Criar chave na Groq" maxWidth="Infinity" styleClass="secundario"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="Entre ou crie sua conta, clique em Create API Key e copie a chave para o campo acima." wrapText="true" styleClass="subtitulo"/>
+                <!-- Representa uma escolha booleana consultada pelo controller. O fx:id lembrarChave corresponde ao campo @FXML. -->
+                <CheckBox fx:id="lembrarChave" text="Lembrar neste usuário do Windows" wrapText="true"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id situacaoChave corresponde ao campo @FXML. -->
+                <Label fx:id="situacaoChave" minHeight="-Infinity" text="A chave fica apenas nesta sessão." wrapText="true" styleClass="subtitulo"/>
+                <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+                <VBox spacing="6">
+                    <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id trocarChave corresponde ao campo @FXML. -->
+                    <Button fx:id="trocarChave" text="Trocar chave" maxWidth="Infinity" styleClass="secundario"/>
+                    <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id esquecerChave corresponde ao campo @FXML. -->
+                    <Button fx:id="esquecerChave" text="Esquecer chave salva" maxWidth="Infinity" styleClass="secundario"/>
+                </VBox>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="Ao lembrar, a chave é protegida pela sua conta do Windows. Pessoas que compartilham essa conta também podem usá-la." wrapText="true" styleClass="subtitulo"/>
+                <!-- Representa uma escolha booleana consultada pelo controller. O fx:id usarTransacoes corresponde ao campo @FXML. -->
+                <CheckBox fx:id="usarTransacoes" text="Usar minhas transações" selected="true" wrapText="true"/>
+                <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. -->
+                <Label minHeight="-Infinity" text="Ao enviar, os dados selecionados são compartilhados com a Groq para contextualizar a resposta." wrapText="true" styleClass="subtitulo"/>
+            </VBox>
+        </VBox>
+    </content>
+        </ScrollPane>
+    </left>
+    <!-- Área principal que recebe tabela, formulário, relatório ou conversa. -->
+    <center>
+        <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+        <VBox spacing="14">
+            <!-- Agrupa as margens internas do container. -->
+            <padding><Insets top="0" right="26" bottom="24" left="0"/></padding>
+            <!-- Permite ler conteúdo maior que a área disponível na janela. O fx:id rolagem corresponde ao campo @FXML. -->
+            <ScrollPane fx:id="rolagem" fitToWidth="true" styleClass="edu-conversa" VBox.vgrow="ALWAYS">
+                <!-- Define o conteúdo único do componente de rolagem. O fx:id mensagens corresponde ao campo @FXML. -->
+                <content><VBox fx:id="mensagens" spacing="16"><padding><Insets top="20" right="20" bottom="20" left="20"/></padding></VBox></content>
+            </ScrollPane>
+            <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+            <HBox spacing="8">
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id orcamento corresponde ao campo @FXML. -->
+                <Button fx:id="orcamento" text="Organizar orçamento" styleClass="secundario"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id reserva corresponde ao campo @FXML. -->
+                <Button fx:id="reserva" text="Reserva de emergência" styleClass="secundario"/>
+                <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id gastos corresponde ao campo @FXML. -->
+                <Button fx:id="gastos" text="Entender meus gastos" styleClass="secundario"/>
+            </HBox>
+            <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
+            <VBox spacing="8" styleClass="cartao">
+                <!-- Recebe texto com várias linhas e quebra conforme a largura disponível. O fx:id pergunta corresponde ao campo @FXML. -->
+                <TextArea fx:id="pergunta" promptText="Sobre o que você quer conversar?" prefRowCount="3" wrapText="true"/>
+                <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <!-- Indica atividade durante a consulta sem representar um percentual conhecido. O fx:id progresso corresponde ao campo @FXML. -->
+                    <ProgressIndicator fx:id="progresso" visible="false" managed="false" prefWidth="24" prefHeight="24"/>
+                    <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id status corresponde ao campo @FXML. -->
+                    <Label fx:id="status" text="Ctrl + Enter para enviar" wrapText="true" HBox.hgrow="ALWAYS" styleClass="subtitulo"/>
+                    <!-- Ocupa espaço flexível para separar e alinhar grupos de controles. -->
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id cancelar corresponde ao campo @FXML. -->
+                    <Button fx:id="cancelar" text="Cancelar" visible="false" managed="false"/>
+                    <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id enviar corresponde ao campo @FXML. -->
+                    <Button fx:id="enviar" text="Enviar pergunta" styleClass="primario"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

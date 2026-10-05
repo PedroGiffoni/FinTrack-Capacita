@@ -1,3 +1,5 @@
+> Documento da versão Streamlit legada. O Edu integrado ao FinTrack é implementado em Java; consulte o README principal e docs/guia-codigo.md.
+
 # Documentação do Agente — EDU (Versão Atualizada)
 
 ## Caso de Uso
@@ -49,8 +51,8 @@ Informal, acessível e direto, como um professor particular que explica de forma
 ```mermaid
 flowchart TD
     A[Usuário] --> B["Streamlit (Interface Visual)"]
-    B --> C["Gemini API (LLM)"]
-    C --> D["Base de Conhecimento (JSON/CSV)"]
+    B --> C["Groq API (LLM)"]
+    C --> D["SQLite e bases complementares (JSON/CSV)"]
     C --> E["API de Cotações (AwesomeAPI)"]
     C --> F["Resposta Final"]
 ```
@@ -60,8 +62,8 @@ flowchart TD
 | Componente           | Descrição                                                  |
 | -------------------- | ---------------------------------------------------------- |
 | Interface            | [Streamlit](https://streamlit.io/)                         |
-| LLM                  | Gemini 2.5 flash (google AI)                               |
-| Base de Conhecimento | JSON/CSV mockados na pasta `data`                          |
+| LLM                  | Groq, com modelo configurado em src/app.py                               |
+| Base de Conhecimento | Transações SQLite e bases opcionais na pasta data                          |
 | API de Cotações      | [AwesomeAPI](https://docs.awesomeapi.com.br/api-de-moedas) |
 
 ---

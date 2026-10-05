@@ -1,3 +1,4 @@
+// Agrupa esta classe na camada model do projeto.
 package model;
 
 /**
@@ -14,6 +15,7 @@ public class Receita extends Transacao {
      * Construtor da classe Receita.
      */
     public Receita(String categoria, String descricao, double valor, String data) {
+        // Fixa o tipo receita e reutiliza todas as validações da superclasse.
         super(categoria, descricao, valor, "receita", data);
     }
 }

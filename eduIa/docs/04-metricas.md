@@ -29,7 +29,7 @@ Crie testes simples para validar seu agente:
 ### Teste 1: Consulta de gastos
 
 - **Pergunta:** "Quanto gastei com alimentação?"
-- **Resposta esperada:** R$570,00 (baseado no `transacoes.csv`)
+- **Resposta esperada:** R$570,00 (exemplo da etapa inicial; conferir o saldo atual no banco)
 - **Resultado:** [X] Correto [ ] Incorreto
 
 ### Teste 2: Recomendação de produto

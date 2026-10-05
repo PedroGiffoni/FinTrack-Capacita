@@ -1,3 +1,4 @@
+// Agrupa esta classe na camada utils do projeto.
 package utils;
 
 /**
@@ -18,6 +19,7 @@ public class Formatador {
      * R$ 1500.50 -> R$ 1500,50 (dependendo da configuração da JVM)
      */
     public static String formatarMoeda(double valor) {
+        // Aplica duas casas decimais à apresentação do console; o separador depende da região da JVM.
         return String.format("R$ %.2f", valor);
     }
 }

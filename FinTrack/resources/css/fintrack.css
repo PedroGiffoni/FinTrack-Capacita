@@ -1,0 +1,177 @@
+/* Configuração comum de fonte, cor, fundo e foco em todas as telas. */
+.root {
+    /* Seleciona a família tipográfica da interface. */
+    -fx-font-family: "Segoe UI", sans-serif;
+    /* Define a escala do texto deste componente. */
+    -fx-font-size: 14px;
+    /* Define a cor do texto mantendo contraste com o fundo. */
+    -fx-text-fill: #17263e;
+    /* Define o fundo do componente ou de seu estado visual. */
+    -fx-background-color: #f4f7fc;
+    /* Cor aplicada a seleções e indicadores de controles. */
+    -fx-accent: #0069e8;
+    /* Cor do contorno quando o controle recebe foco. */
+    -fx-focus-color: #0069e8;
+    /* Contorno suave complementar ao foco do teclado. */
+    -fx-faint-focus-color: #0069e822;
+}
+/* Fundo da identidade visual nas raízes das telas. */
+.pagina { -fx-background-color: #f4f7fc; }
+/* Cor padrão do texto legível sobre fundos claros. */
+.label { -fx-text-fill: #17263e; }
+/* Identificação principal, com fonte maior e azul-marinho. */
+.marca { -fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #0b1830; }
+/* Hierarquia dos títulos de tela. */
+.titulo { -fx-font-size: 25px; -fx-font-weight: bold; }
+/* Hierarquia dos títulos de grupos e painéis. */
+.titulo-secao { -fx-font-size: 19px; -fx-font-weight: bold; }
+/* Texto secundário usado em orientações e legendas. */
+.subtitulo { -fx-text-fill: #60748b; -fx-font-size: 13px; }
+/* Fundo branco, bordas e margens dos cartões de resumo. */
+.cartao {
+    /* Define o fundo do componente ou de seu estado visual. */
+    -fx-background-color: white;
+    /* Arredonda o preenchimento sem alterar o comportamento do controle. */
+    -fx-background-radius: 12;
+    /* Define a cor do contorno visual. */
+    -fx-border-color: #e0e7ef;
+    /* Mantém o contorno com o mesmo arredondamento do fundo. */
+    -fx-border-radius: 12;
+    /* Cria espaço interno entre conteúdo e borda. */
+    -fx-padding: 18 22;
+    /* Evita cartões estreitos demais para os valores. */
+    -fx-min-width: 220;
+}
+/* Rótulo discreto que identifica o valor apresentado no cartão. */
+.rotulo-cartao { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #60748b; }
+/* Destaque dos totais financeiros. */
+.valor-cartao { -fx-font-size: 27px; -fx-font-weight: bold; }
+/* Cor de marca aplicada a receitas e saldos não negativos. */
+.positivo { -fx-text-fill: #0069e8; }
+/* Cor de atenção para saídas, saldos negativos e erros. */
+.negativo, .erro { -fx-text-fill: #b13e45; }
+/* Aparência base dos botões antes dos estados e variantes. */
+.button {
+    /* Define o fundo do componente ou de seu estado visual. */
+    -fx-background-color: #e7effb;
+    /* Arredonda o preenchimento sem alterar o comportamento do controle. */
+    -fx-background-radius: 7;
+    /* Define a cor do texto mantendo contraste com o fundo. */
+    -fx-text-fill: #17263e;
+    /* Cria espaço interno entre conteúdo e borda. */
+    -fx-padding: 10 16;
+    /* Indica uma ação clicável com o cursor de mão. */
+    -fx-cursor: hand;
+    /* Controla o destaque do texto. */
+    -fx-font-weight: bold;
+}
+/* Feedback visual quando o ponteiro passa sobre o botão. */
+.button:hover { -fx-background-color: #d4e4fa; }
+/* Reduz a intensidade visual de uma ação indisponível. */
+.button:disabled { -fx-opacity: 0.5; }
+/* Ações principais utilizam azul da marca e texto branco. */
+.primario { -fx-background-color: #0069e8; -fx-text-fill: white; }
+/* Escurece o azul para indicar a interação com a ação principal. */
+.primario:hover { -fx-background-color: #0054bd; }
+/* Ações de apoio usam fundo branco e contorno. */
+.secundario { -fx-background-color: white; -fx-border-color: #d7e1eb; -fx-border-radius: 7; }
+/* Ações destrutivas recebem um fundo e texto próprios. */
+.perigo { -fx-background-color: #fbe9eb; -fx-text-fill: #a8333e; }
+/* Feedback de interação da ação de exclusão. */
+.perigo:hover { -fx-background-color: #f6d5da; }
+/* Os campos compartilham contorno, fundo e arredondamento. */
+.text-field, .text-area, .combo-box, .date-picker, .spinner {
+    /* Define o fundo do componente ou de seu estado visual. */
+    -fx-background-color: white;
+    /* Define a cor do contorno visual. */
+    -fx-border-color: #d7e1eb;
+    /* Mantém o contorno com o mesmo arredondamento do fundo. */
+    -fx-border-radius: 6;
+    /* Arredonda o preenchimento sem alterar o comportamento do controle. */
+    -fx-background-radius: 6;
+}
+/* Espaçamento interno dos campos de uma linha. */
+.text-field { -fx-padding: 9 10; }
+/* Fundo da região editável dos campos de múltiplas linhas. */
+.text-area .content { -fx-background-color: white; }
+/* Contorno e fundo da tabela sem margens adicionais. */
+.table-view {
+    /* Define o fundo do componente ou de seu estado visual. */
+    -fx-background-color: white;
+    /* Define a cor do contorno visual. */
+    -fx-border-color: #dfe7ef;
+    /* Mantém o contorno com o mesmo arredondamento do fundo. */
+    -fx-border-radius: 8;
+    /* Arredonda o preenchimento sem alterar o comportamento do controle. */
+    -fx-background-radius: 8;
+    /* Cria espaço interno entre conteúdo e borda. */
+    -fx-padding: 0;
+}
+/* Estiliza o cabeçalho para distinguir seus rótulos das linhas de dados. */
+.table-view .column-header-background { -fx-background-color: #eaf1fc; }
+/* Estiliza o cabeçalho para distinguir seus rótulos das linhas de dados. */
+.table-view .column-header, .table-view .filler {
+    /* Define o fundo do componente ou de seu estado visual. */
+    -fx-background-color: transparent;
+    /* Estabelece a altura da região de cabeçalho. */
+    -fx-size: 44px;
+    /* Define a cor do contorno visual. */
+    -fx-border-color: transparent;
+}
+/* Estiliza o cabeçalho para distinguir seus rótulos das linhas de dados. */
+.table-view .column-header .label { -fx-alignment: CENTER_LEFT; -fx-padding: 0 12; -fx-font-weight: bold; }
+/* Altura e fundo das linhas para facilitar leitura. */
+.table-row-cell { -fx-cell-size: 44px; -fx-background-color: white; }
+/* Alternância discreta de fundo entre linhas. */
+.table-row-cell:odd { -fx-background-color: #f9fbfd; }
+/* Destaque da linha selecionada sem perder contraste. */
+.table-row-cell:selected { -fx-background-color: #deebff; }
+/* Preserva o contraste do texto da linha selecionada. */
+.table-row-cell:selected .text { -fx-fill: #0b1830; }
+/* Alinha e espaça o conteúdo das células da tabela. */
+.table-cell { -fx-alignment: CENTER_LEFT; -fx-padding: 12; -fx-border-color: transparent; }
+/* Alinhamento à direita facilita comparar valores monetários. */
+.coluna-valor { -fx-alignment: CENTER_RIGHT; }
+/* Distingue a área de ações na base da janela. */
+.rodape { -fx-background-color: #edf2f7; -fx-border-color: #dfe7ef transparent transparent transparent; }
+/* Margem interna para o gráfico não tocar os limites do painel. */
+.chart { -fx-padding: 8; }
+/* Mantém a legenda integrada ao fundo da tela. */
+.chart-legend { -fx-background-color: transparent; }
+/* Define uma das cores das categorias do gráfico. */
+.default-color0.chart-pie { -fx-pie-color: #0069e8; }
+/* Define uma das cores das categorias do gráfico. */
+.default-color1.chart-pie { -fx-pie-color: #06439b; }
+/* Define uma das cores das categorias do gráfico. */
+.default-color2.chart-pie { -fx-pie-color: #dfa848; }
+/* Define uma das cores das categorias do gráfico. */
+.default-color3.chart-pie { -fx-pie-color: #bc6976; }
+/* Define uma das cores das categorias do gráfico. */
+.default-color4.chart-pie { -fx-pie-color: #8c76b5; }
+
+/* Destaque dos números no panorama lateral do Edu. */
+.edu-valor { -fx-font-size: 23px; -fx-font-weight: bold; }
+/* Contorno e fundo da área que recebe os balões. */
+.edu-conversa { -fx-background-color: white; -fx-background: white; -fx-border-color: #e0e7ef; -fx-border-radius: 12; -fx-background-radius: 12; }
+/* Fundo suave que identifica as respostas do educador. */
+.edu-resposta { -fx-background-color: #f0f5ff; -fx-background-radius: 10; -fx-padding: 16; }
+/* Fundo azul mais intenso para distinguir as perguntas do usuário. */
+.edu-pergunta { -fx-background-color: #deebff; -fx-background-radius: 10; -fx-padding: 16; }
+/* Cor e peso do nome de quem enviou a mensagem. */
+.edu-autor { -fx-font-weight: bold; -fx-text-fill: #0069e8; }
+/* Integra o TextArea da pergunta ao fundo do balão. */
+.edu-texto, .edu-texto .content { -fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0; }
+/* Texto da pergunta sem contorno de foco de um campo de edição. */
+.edu-texto { -fx-text-fill: #17263e; -fx-focus-color: transparent; -fx-faint-focus-color: transparent; }
+
+/* Retira fundos internos do TextArea para que o balão mantenha aparência uniforme. */
+.edu-texto .scroll-pane, .edu-texto .scroll-pane .viewport, .edu-texto .scroll-pane .content { -fx-background-color: transparent; }
+
+/* Margens menores mantêm o painel lateral compacto. */
+.edu-painel .cartao { -fx-padding: 14 18; }
+
+/* Integra a rolagem lateral ao fundo geral da tela. */
+.edu-lateral, .edu-lateral > .viewport { -fx-background-color: transparent; }
+
+/* Área branca em torno da logomarca para preservar sua leitura. */
+.identidade { -fx-background-color: white; -fx-background-radius: 10; -fx-padding: 6 12; }
