@@ -254,6 +254,8 @@ A pasta e o esquema são criados automaticamente. Uma instalação nova começa 
 
 O DAO utiliza `PreparedStatement` e `ResultSet`. Valores monetários são armazenados em centavos e calculados com `BigDecimal`, evitando somas com arredondamento de ponto flutuante.
 
+O SQL da página 8 do enunciado foi adaptado para SQLite: `AUTO_INCREMENT` corresponde a `INTEGER PRIMARY KEY AUTOINCREMENT`, `valor DECIMAL(10,2)` é representado por `valor_centavos INTEGER` e `data DATE` por texto ISO validado com `LocalDate`. A descrição usa `TEXT` e não impõe o limite de 100 caracteres do exemplo. A correspondência completa e as diferenças estão em [requisitos da entrega](docs/requisitos.md#correspondência-do-sql-do-enunciado). SQLite usa um arquivo local e não requer usuário e senha de servidor.
+
 ### Migração do CSV antigo
 
 Na primeira execução, se `transacoes.csv` existir na pasta de dados, os registros são importados uma única vez. A importação preserva IDs, categorias, valores, datas e informações mensais.
@@ -324,7 +326,7 @@ docs/
     images/
 ```
 
-O `RepositorioGenerico<T>` oferece adição, remoção, listagem e filtros. Demonstra `?`, `? extends T` e `? super T` em operações com coleções. O mapeamento dos requisitos desta etapa está em [docs/requisitos.md](docs/requisitos.md). Para estudar o fluxo completo, consulte o [guia de leitura do código](docs/guia-codigo.md), que acompanha os comentários das classes, telas, estilos, scripts e testes.
+O `RepositorioGenerico<T>` oferece adição, remoção, listagem e filtros. Demonstra `?`, `? extends T` e `? super T` em operações com coleções. O `ServicoGenerico<T>` reutiliza a listagem e os filtros, e define o contrato de cadastro e remoção. `TransacaoService` especializa esse serviço em `Transacao`, consulta o DAO a cada chamada e fornece os dados às telas e ao Edu. O mapeamento dos requisitos desta etapa está em [docs/requisitos.md](docs/requisitos.md). Para estudar o fluxo completo, consulte o [guia de leitura do código](docs/guia-codigo.md), que acompanha os comentários das classes, telas, estilos, scripts e testes. O [roteiro de apresentação](docs/apresentacao.md) reúne a demonstração dos conteúdos exigidos na entrega.
 
 ## Testes
 

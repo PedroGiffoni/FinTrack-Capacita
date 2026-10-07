@@ -78,6 +78,14 @@ Antes de adicionar um lote, todos os elementos são verificados contra null. Iss
 
 O repositório genérico atua em memória. Quem persiste registros é o DAO.
 
+### Serviço genérico
+
+`ServicoGenerico<T>` define um contrato reutilizável de cadastro, remoção, listagem e filtro. `TransacaoService extends ServicoGenerico<Transacao>` mantém as operações SQL no DAO e fornece a consulta atual por `consultar()`.
+
+O serviço base implementa `listar()` e `filtrar(Predicate<? super T>)` usando um novo repositório para cada consulta. `consultar()` aceita `Collection<? extends T>`, permitindo uma fonte de subtipos. A lista retornada protege sua estrutura, mas não é uma cópia profunda dos objetos.
+
+O filtro financeiro com descrição, tipo, categoria e datas usa o filtro genérico herdado. As telas e o Edu passam pelo mesmo serviço; nenhuma consulta depende de registros antigos mantidos em cache. A especialização também implementa `adicionar(Transacao)` e `remover(int)`, exercitados pelos testes através de uma referência `ServicoGenerico<Transacao>`.
+
 ## 4. JDBC: abrir e configurar o banco
 
 `Conexao.pastaDados()` primeiro verifica a propriedade `fintrack.dados`. Sem configuração, considera o diretório de execução e escolhe a pasta local prevista no projeto.
@@ -285,7 +293,7 @@ Cada teste pode ser lido em três etapas: preparar dados e dependências; execut
 | RepositorioGenericoTest | Tipos genéricos, lista protegida e rejeição de lote com null |
 | TransacaoDAOTest | CRUD, IDs, subclasses, SQL parametrizado e rollback |
 | MigracaoDadosTest | Importação única, falha sem lote parcial e persistência em arquivo |
-| TransacaoServiceTest | Soma decimal, filtros inclusivos e categorias equivalentes |
+| TransacaoServiceTest | Contrato genérico com SQLite, leitura atualizada, predicado de supertipo, soma decimal, filtros inclusivos e categorias equivalentes |
 | EducacaoFinanceiraServiceTest | Pedido HTTP, contexto autorizado e credencial recusada |
 | ChaveGroqServiceTest | Criptografia, recuperação, substituição, exclusão e arquivo inválido |
 | MarkdownFormatadorTest | Elementos formatados e rejeição de conteúdo ativo ou externo |

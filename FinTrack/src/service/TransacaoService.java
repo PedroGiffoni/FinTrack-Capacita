@@ -17,11 +17,9 @@ import java.util.Map;
 import java.util.TreeMap;
 // Referencia Transacao, componente da camada model utilizado neste fluxo.
 import model.Transacao;
-// Referencia RepositorioGenerico, componente da camada repository utilizado neste fluxo.
-import repository.RepositorioGenerico;
 
 // Reúne consultas e cálculos financeiros usados pela interface e pelo console.
-public class TransacaoService {
+public class TransacaoService extends ServicoGenerico<Transacao> {
     // Dependência que será fornecida na inicialização; a classe não acessa armazenamento por conta própria.
     private final TransacaoDAO dao;
 
@@ -31,17 +29,15 @@ public class TransacaoService {
         this.dao = dao;
     }
 
-    // Devolve os registros disponíveis sem permitir alteração direta da coleção interna.
-    public List<Transacao> listar() {
-        // A coleção aceita Transacao e suas subclasses, demonstrando generics.
-        RepositorioGenerico<Transacao> repositorio = new RepositorioGenerico<>();
-        // Relê o SQLite agora, sem depender de uma lista antiga da interface.
-        repositorio.adicionarTodos(dao.listar());
-        // Devolve uma lista que não altera a coleção interna do repositório.
-        return repositorio.listar();
+    // Implementa a fonte de dados usada pela listagem e pelos filtros herdados.
+    @Override
+    protected List<Transacao> consultar() {
+        // Relê o SQLite a cada consulta; o serviço genérico organiza o resultado.
+        return dao.listar();
     }
 
     // Valida o registro e o encaminha ao armazenamento desta camada.
+    @Override
     public void adicionar(Transacao transacao) {
         // Delega o SQL ao DAO; o serviço coordena a operação de cadastro.
         dao.inserir(transacao);
@@ -57,6 +53,7 @@ public class TransacaoService {
     }
 
     // Remove o registro solicitado e informa se algo foi encontrado.
+    @Override
     public boolean remover(int id) {
         // Informa se a exclusão realmente encontrou o registro.
         return dao.remover(id);
@@ -71,12 +68,8 @@ public class TransacaoService {
         }
         // Normaliza a busca para comparação sem distinguir maiúsculas.
         String texto = busca == null ? "" : busca.trim().toLowerCase(java.util.Locale.ROOT);
-        // A coleção aceita Transacao e suas subclasses, demonstrando generics.
-        RepositorioGenerico<Transacao> repositorio = new RepositorioGenerico<>();
-        // Relê o SQLite agora, sem depender de uma lista antiga da interface.
-        repositorio.adicionarTodos(dao.listar());
-        // Todos os critérios abaixo devem ser atendidos pelo mesmo registro.
-        return repositorio.filtrar(t ->
+        // O filtro herdado consulta o banco e exige todos os critérios no mesmo registro.
+        return filtrar(t ->
                 // Descrição sem filtro aceita todos os registros; contains procura um trecho.
                 (texto.isEmpty() || t.getDescricao().toLowerCase(java.util.Locale.ROOT).contains(texto))
                 // Tipo nulo permite receitas e despesas.

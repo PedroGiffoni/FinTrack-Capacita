@@ -39,6 +39,46 @@ class TransacaoServiceTest {
     // Libera recursos ou limpa o estado ao terminar a sessão.
     @AfterEach void encerrar() { dao.close(); }
 
+    // Exercita o contrato genérico com a persistência real em SQLite em memória.
+    @Test void contratoGenericoPersisteListaERemoveTransacoes() {
+        // A referência usa a abstração; a instância continua sendo o serviço financeiro.
+        ServicoGenerico<Transacao> registros = service;
+        // Receita é um subtipo aceito pelo contrato especializado em Transacao.
+        Receita receita = new Receita("Outros", "Pagamento", 10, "01/01/2026");
+        // A chamada genérica precisa gravar no DAO, não apenas numa lista em memória.
+        registros.adicionar(receita);
+        // Confere a persistência independentemente da listagem do serviço.
+        assertEquals(receita.getId(), dao.listar().get(0).getId());
+        // Guarda a fotografia anterior para verificar isolamento estrutural.
+        List<Transacao> anteriores = registros.listar();
+        // O resultado não permite incluir registros sem passar pelo serviço.
+        assertThrows(UnsupportedOperationException.class, anteriores::clear);
+        // A remoção pelo contrato genérico deve atingir a mesma linha do banco.
+        assertTrue(registros.remover(receita.getId()));
+        // A nova consulta reflete a exclusão, enquanto a fotografia anterior permanece.
+        assertTrue(registros.listar().isEmpty());
+        // Confere que a lista anterior não foi modificada pela nova operação.
+        assertEquals(1, anteriores.size());
+    }
+
+    // Verifica o curinga super e a leitura atualizada da fonte em cada consulta.
+    @Test void filtroGenericoAceitaSupertipoEReconsultaBanco() {
+        // Um predicado de Object pode avaliar elementos de Transacao.
+        java.util.function.Predicate<Object> despesas = item -> item instanceof Despesa;
+        // A referência evidencia que o filtro pertence ao serviço genérico.
+        ServicoGenerico<Transacao> registros = service;
+        // O banco começa vazio, portanto nenhum registro atende ao critério.
+        assertTrue(registros.filtrar(despesas).isEmpty());
+        // Grava diretamente no DAO para verificar que o serviço não usa cache antigo.
+        dao.inserir(new Despesa("Moradia", "Aluguel", 100, "02/01/2026"));
+        // Inclui uma receita que precisa ser excluída pelo predicado.
+        dao.inserir(new Receita("Outros", "Salário", 200, "02/01/2026"));
+        // A nova consulta deve encontrar somente a despesa recém-gravada.
+        assertEquals("Aluguel", registros.filtrar(despesas).get(0).getDescricao());
+        // Confere a quantidade para impedir que o filtro aceite também a receita.
+        assertEquals(1, registros.filtrar(despesas).size());
+    }
+
     // Cenário de regressão: calcula saldo sem erro de arredondamento.
     @Test void calculaSaldoSemErroDeArredondamento() {
         // Prepara transacoes com os dados ou recursos usados nas próximas operações.
