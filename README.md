@@ -326,7 +326,7 @@ docs/
     images/
 ```
 
-O `RepositorioGenerico<T>` oferece adição, remoção, listagem e filtros. Demonstra `?`, `? extends T` e `? super T` em operações com coleções. O `ServicoGenerico<T>` reutiliza a listagem e os filtros, e define o contrato de cadastro e remoção. `TransacaoService` especializa esse serviço em `Transacao`, consulta o DAO a cada chamada e fornece os dados às telas e ao Edu. O mapeamento dos requisitos desta etapa está em [docs/requisitos.md](docs/requisitos.md). Para estudar o fluxo completo, consulte o [guia de leitura do código](docs/guia-codigo.md), que acompanha os comentários das classes, telas, estilos, scripts e testes. O [roteiro de apresentação](docs/apresentacao.md) reúne a demonstração dos conteúdos exigidos na entrega.
+O `RepositorioGenerico<T>` oferece adição, remoção, listagem e filtros. Demonstra `?`, `? extends T` e `? super T` em operações com coleções. O `ServicoGenerico<T>` reutiliza a listagem e os filtros, e define o contrato de cadastro e remoção. `TransacaoService` especializa esse serviço em `Transacao`, consulta o DAO a cada chamada e fornece os dados às telas e ao Edu. O mapeamento dos requisitos desta etapa está em [docs/requisitos.md](docs/requisitos.md). Para estudar o fluxo completo, consulte o [guia de leitura do código](docs/guia-codigo.md), que acompanha os comentários das classes, telas, estilos, scripts e testes.
 
 ## Testes
 

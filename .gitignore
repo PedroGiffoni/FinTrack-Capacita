@@ -27,3 +27,5 @@ __pycache__/
 # Credenciais protegidas e variáveis de ambiente particulares.
 *.dpapi
 .env.*
+# Roteiro mantido somente na máquina local.
+/docs/apresentacao.md

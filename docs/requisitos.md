@@ -60,8 +60,6 @@ ServicoGenerico<T> define adicionar(T), remover(int), listar() e filtrar(Predica
 
 Listagem e filtros são herdados e usados pelos controllers e pelo Edu. Cada chamada consulta a fonte novamente e utiliza RepositorioGenerico<T> para proteger a estrutura da lista. Os testes exercitam cadastro e remoção pelo contrato genérico, aceitação de predicado de supertipo e consulta de registros gravados diretamente no DAO.
 
-O [roteiro de apresentação](apresentacao.md) organiza a demonstração de Generics, telas, Scene Builder, JDBC e JUnit.
-
 ## Verificação manual
 
 1. Cadastrar uma receita e uma despesa e conferir tabela e saldo.
