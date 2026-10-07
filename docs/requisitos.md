@@ -15,7 +15,7 @@ O FinTrack evolui a aplicação de console construída na etapa inicial do curso
 | Tela de cadastro e edição | view/transacao-formulario.fxml e TransacaoController |
 | Tela de relatório e saldo | view/relatorio.fxml e RelatorioController |
 | FXML e controllers | fx:controller e campos @FXML |
-| Scene Builder | Quatro telas abertas e revisadas visualmente; procedimento em scene-builder.md |
+| Scene Builder | Quatro telas abertas e revisadas visualmente no editor |
 | Estilização | css/fintrack.css |
 | Componentes gráficos | Label, TextField, TextArea, Button, DatePicker, CheckBox, TableView |
 | Layout | VBox, HBox, GridPane e BorderPane |

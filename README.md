@@ -371,7 +371,7 @@ Abra a raiz do repositório, que contém o `pom.xml`, no VS Code, NetBeans ou In
 
 As quatro telas de `FinTrack/resources/view` foram abertas e conferidas no Scene Builder 26.0.0. Elas utilizam `fx:controller` e controles JavaFX padrão. Cada raiz FXML referencia a folha de estilo comum por um caminho relativo e define dimensões de referência, permitindo visualizar a identidade do aplicativo no editor.
 
-O editor apresenta o layout; consultas ao banco, eventos e mensagens do Edu são executados pelos controllers quando o aplicativo inicia. O componente que exibe Markdown é criado pelo controller durante a conversa. Consulte o [guia do Scene Builder](docs/scene-builder.md) para abrir, revisar e validar as telas.
+O editor apresenta o layout; consultas ao banco, eventos e mensagens do Edu são executados pelos controllers quando o aplicativo inicia. O componente que exibe Markdown é criado pelo controller durante a conversa. Para editar, abra os arquivos FXML em Open Project no Scene Builder e preserve fx:controller, fx:id e os caminhos dos recursos.
 
 ## Solução de problemas
 
