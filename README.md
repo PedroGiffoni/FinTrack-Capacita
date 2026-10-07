@@ -11,6 +11,7 @@ O projeto evolui a versão de console para uma aplicação desktop, com FXML, CS
 ## Conteúdo
 
 - [Funcionalidades](#funcionalidades)
+- [Telas do aplicativo](#telas-do-aplicativo)
 - [Tecnologias e requisitos](#tecnologias-e-requisitos)
 - [Instalação e execução](#instalação-e-execução)
 - [Como usar](#como-usar)
@@ -37,9 +38,33 @@ O projeto evolui a versão de console para uma aplicação desktop, com FXML, CS
 - Confirmação da chave Groq por botão ou Enter, com armazenamento criptografado opcional no Windows.
 - Consultas ao Edu em segundo plano, com cancelamento e tratamento de falhas.
 
-![Tela principal do FinTrack](docs/images/transacoes.png)
+## Telas do aplicativo
 
-A captura utiliza registros fictícios dos testes de interface.
+As capturas utilizam registros fictícios dos testes de interface. A resposta do Edu é demonstrativa e não contém dados pessoais ou credenciais.
+
+### Tela principal
+
+Listagem de transações, filtros e resumo de receitas, despesas e saldo.
+
+![Tela principal do FinTrack com tabela de transações e resumo financeiro](docs/images/transacoes.png)
+
+### Cadastro de transação
+
+Formulário para receitas e despesas, com valor, data, categoria e opção de transação mensal.
+
+![Formulário de cadastro de uma despesa mensal no FinTrack](docs/images/cadastro.png)
+
+### Relatório financeiro
+
+Consulta por período e categoria, com totais, tabela e gráfico de despesas.
+
+![Relatório financeiro do FinTrack com totais e gráfico por categoria](docs/images/relatorio.png)
+
+### Edu — Educação financeira
+
+Panorama integrado às transações e resposta em Markdown, com título, lista, citação e tabela.
+
+![Tela do Edu exibindo uma resposta formatada em Markdown](docs/images/edu-markdown.png)
 
 ## Tecnologias e requisitos
 
