@@ -90,7 +90,7 @@ Os scripts `.bat` e PowerShell foram preparados para Windows. Em outros sistemas
 ### Clonar esta versão
 
 ```powershell
-git clone --branch feat/fintrack-javafx-sqlite-edu https://github.com/PedroGiffoni/FinTrack-Capacita.git
+git clone --branch Fintrack-V2 https://github.com/PedroGiffoni/FinTrack-Capacita.git
 cd FinTrack-Capacita
 ```
 
