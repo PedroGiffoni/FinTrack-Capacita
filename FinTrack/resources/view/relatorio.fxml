@@ -8,8 +8,9 @@
 <!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
 <?import javafx.geometry.Insets?>
 <!-- Divide a tela em regiões e associa o controller informado por fx:controller. -->
+<!-- CSS e dimensões de referência permitem conferir a aparência também no Scene Builder. -->
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.RelatorioController" styleClass="pagina">
+            fx:controller="controller.RelatorioController" styleClass="pagina" stylesheets="@../css/fintrack.css" prefWidth="980" prefHeight="720">
     <!-- Região superior com identificação da tela, filtros ou resumo. -->
     <top>
         <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
@@ -21,18 +22,19 @@
             <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
             <HBox alignment="BOTTOM_LEFT" spacing="12">
                 <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. O fx:id inicio corresponde ao campo @FXML. -->
-                <VBox spacing="6"><Label text="De"/><DatePicker fx:id="inicio" prefWidth="150"/></VBox>
+                <VBox spacing="6" minWidth="150"><Label text="De"/><DatePicker fx:id="inicio" prefWidth="150"/></VBox>
                 <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. O fx:id fim corresponde ao campo @FXML. -->
-                <VBox spacing="6"><Label text="Até"/><DatePicker fx:id="fim" prefWidth="150"/></VBox>
+                <VBox spacing="6" minWidth="150"><Label text="Até"/><DatePicker fx:id="fim" prefWidth="150"/></VBox>
                 <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
                 <VBox spacing="6" HBox.hgrow="ALWAYS">
                     <!-- Apresenta texto ou resultado calculado sem aceitar edição do usuário. O fx:id categoria corresponde ao campo @FXML. -->
                     <Label text="Categoria"/><ComboBox fx:id="categoria" maxWidth="Infinity"/>
                 </VBox>
                 <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id aplicar corresponde ao campo @FXML. -->
-                <Button fx:id="aplicar" text="Aplicar" styleClass="primario"/>
+                <!-- Reserva espaço para o texto mesmo sem os dados carregados pelo controller na prévia. -->
+                <Button fx:id="aplicar" text="Aplicar" styleClass="primario" minWidth="90"/>
                 <!-- A ação deste botão é ligada pelo controller com setOnAction. O fx:id limpar corresponde ao campo @FXML. -->
-                <Button fx:id="limpar" text="Limpar" styleClass="secundario"/>
+                <Button fx:id="limpar" text="Limpar" styleClass="secundario" minWidth="90"/>
             </HBox>
             <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->
             <HBox spacing="14">

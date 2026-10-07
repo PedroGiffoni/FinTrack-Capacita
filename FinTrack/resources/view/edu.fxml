@@ -10,7 +10,8 @@
 <!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
 <?import javafx.scene.layout.*?>
 <!-- Divide a tela em regiões e associa o controller informado por fx:controller. -->
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EduController" styleClass="pagina">
+<!-- CSS e dimensões de referência permitem conferir a aparência também no Scene Builder. -->
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EduController" styleClass="pagina" stylesheets="@../css/fintrack.css" prefWidth="1120" prefHeight="790">
     <!-- Região superior com identificação da tela, filtros ou resumo. -->
     <top>
         <!-- Agrupa os componentes horizontalmente; hgrow distribui o espaço disponível. -->

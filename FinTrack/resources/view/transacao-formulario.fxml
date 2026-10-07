@@ -6,8 +6,9 @@
 <!-- Disponibiliza os tipos JavaFX utilizados pelos componentes declarados abaixo. -->
 <?import javafx.geometry.Insets?>
 <!-- Divide a tela em regiões e associa o controller informado por fx:controller. -->
+<!-- CSS e dimensões de referência permitem conferir a aparência também no Scene Builder. -->
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.TransacaoController" styleClass="pagina">
+            fx:controller="controller.TransacaoController" styleClass="pagina" stylesheets="@../css/fintrack.css" prefWidth="640" prefHeight="650">
     <!-- Região superior com identificação da tela, filtros ou resumo. -->
     <top>
         <!-- Agrupa os componentes verticalmente; spacing define a distância entre eles. -->
