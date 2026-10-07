@@ -87,11 +87,23 @@ Os scripts `.bat` e PowerShell foram preparados para Windows. Em outros sistemas
 
 ## Instalação e execução
 
+Esta etapa do projeto está na branch [Fintrack-V2](https://github.com/PedroGiffoni/FinTrack-Capacita/tree/Fintrack-V2).
+
 ### Clonar esta versão
 
 ```powershell
 git clone --branch Fintrack-V2 https://github.com/PedroGiffoni/FinTrack-Capacita.git
 cd FinTrack-Capacita
+```
+
+### Usar esta versão em uma cópia existente
+
+Na pasta do repositório, atualize as referências do Git e selecione a branch desta etapa:
+
+```powershell
+git fetch origin --prune
+git switch Fintrack-V2
+git pull --ff-only
 ```
 
 ### Terminal do VS Code no Windows
